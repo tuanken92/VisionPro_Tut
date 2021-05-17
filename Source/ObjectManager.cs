@@ -13,33 +13,34 @@ namespace VisionPro_Tut.Source
     public class ObjectManager
     {
         //variable
-        MyDefine Common;
         public CogImageFileTool mIFTool;
         public CogAcqFifoTool mAcqTool;
         public CogToolBlock mToolBlock;
         public ulong numPass;
         public ulong numFail;
-
+        private bool bUseImageDatabase;
 
         public ObjectManager()
         {
-            //cogToolBlockEditV21 = null;
-            //cogRecordDisplay1 = null;
             mToolBlock = null;
             mIFTool = null;
             mAcqTool = null;
-            Common = null;
+            
             numPass = 0;
             numFail = 0;
+            bUseImageDatabase = false;
         }
 
         
-        public void InitObject()
+        public void InitObject(MyDefine Common)
         {
 
-            Common = new MyDefine();
+            Common.Print_Infor();
 
-            //cogToolBlockEditV21.LocalDisplayVisible = false;
+            numPass = Common.numOK;
+            numFail = Common.numNG;
+            bUseImageDatabase = Common.using_image_database;
+
             mToolBlock = new CogToolBlock();
             mToolBlock = CogSerializer.LoadObjectFromFile(Common.file_vpp) as CogToolBlock;
             mIFTool = new CogImageFileTool();
@@ -48,7 +49,7 @@ namespace VisionPro_Tut.Source
             // If no camera is attached, disable the radio button
             if (mAcqTool.Operator == null)
             {
-                Common.using_image_database = true;
+                bUseImageDatabase = true;
             }
             else
             {
@@ -56,11 +57,16 @@ namespace VisionPro_Tut.Source
             }
         }
 
+        public void UpdateData(MyDefine Common)
+        {
+            mToolBlock = CogSerializer.LoadObjectFromFile(Common.file_vpp) as CogToolBlock;
+            mIFTool.Operator.Open(Common.file_image_database, CogImageFileModeConstants.Read);
+        }
    
         public void RunOnce()
         {
             // Get the next image
-            if (Common.using_image_database == true)
+            if (bUseImageDatabase)
             {
                 mIFTool.Run();
                 mToolBlock.Inputs["Image"].Value = mIFTool.OutputImage as CogImage8Grey;
@@ -77,7 +83,7 @@ namespace VisionPro_Tut.Source
         public void RunContinue()
         {
             // Get the next image
-            if (Common.using_image_database == true)
+            if (bUseImageDatabase)
             {
                 mIFTool.Run();
                 mToolBlock.Inputs["Image"].Value = mIFTool.OutputImage as CogImage8Grey;

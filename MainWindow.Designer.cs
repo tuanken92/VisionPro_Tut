@@ -37,6 +37,7 @@ namespace VisionPro_Tut
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl_Main = new System.Windows.Forms.TabControl();
             this.tabPage_Auto = new System.Windows.Forms.TabPage();
+            this.cogRecordDisplay1 = new Cognex.VisionPro.CogRecordDisplay();
             this.nFail = new System.Windows.Forms.Label();
             this.nPass = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -48,24 +49,32 @@ namespace VisionPro_Tut
             this.tabPage_Interface = new System.Windows.Forms.TabPage();
             this.tabPage_Parameter = new System.Windows.Forms.TabPage();
             this.tabPage_Setting = new System.Windows.Forms.TabPage();
+            this.btnSaveParam = new System.Windows.Forms.Button();
+            this.lb_Toolblock = new System.Windows.Forms.Label();
+            this.lb_ImgDatabase = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabPage_Log = new System.Windows.Forms.TabPage();
-            this.lbLogo = new System.Windows.Forms.Label();
             this.lbTitle = new System.Windows.Forms.Label();
             this.lbDateTime = new System.Windows.Forms.Label();
-            this.cogRecordDisplay1 = new Cognex.VisionPro.CogRecordDisplay();
+            this.timer_DateTime = new System.Windows.Forms.Timer(this.components);
+            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl_Main.SuspendLayout();
             this.tabPage_Auto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cogRecordDisplay1)).BeginInit();
+            this.tabPage_Setting.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolBlockToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(4, 537);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(855, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(78, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -81,14 +90,14 @@ namespace VisionPro_Tut
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -106,10 +115,10 @@ namespace VisionPro_Tut
             this.tabControl_Main.Controls.Add(this.tabPage_Log);
             this.tabControl_Main.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl_Main.ItemSize = new System.Drawing.Size(96, 50);
-            this.tabControl_Main.Location = new System.Drawing.Point(0, 75);
+            this.tabControl_Main.Location = new System.Drawing.Point(0, 56);
             this.tabControl_Main.Name = "tabControl_Main";
             this.tabControl_Main.SelectedIndex = 0;
-            this.tabControl_Main.Size = new System.Drawing.Size(855, 442);
+            this.tabControl_Main.Size = new System.Drawing.Size(855, 478);
             this.tabControl_Main.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl_Main.TabIndex = 1;
             // 
@@ -126,10 +135,27 @@ namespace VisionPro_Tut
             this.tabPage_Auto.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Auto.Name = "tabPage_Auto";
             this.tabPage_Auto.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Auto.Size = new System.Drawing.Size(847, 384);
+            this.tabPage_Auto.Size = new System.Drawing.Size(847, 420);
             this.tabPage_Auto.TabIndex = 0;
             this.tabPage_Auto.Text = "Auto";
             this.tabPage_Auto.UseVisualStyleBackColor = true;
+            // 
+            // cogRecordDisplay1
+            // 
+            this.cogRecordDisplay1.ColorMapLowerClipColor = System.Drawing.Color.Black;
+            this.cogRecordDisplay1.ColorMapLowerRoiLimit = 0D;
+            this.cogRecordDisplay1.ColorMapPredefined = Cognex.VisionPro.Display.CogDisplayColorMapPredefinedConstants.None;
+            this.cogRecordDisplay1.ColorMapUpperClipColor = System.Drawing.Color.Black;
+            this.cogRecordDisplay1.ColorMapUpperRoiLimit = 1D;
+            this.cogRecordDisplay1.DoubleTapZoomCycleLength = 2;
+            this.cogRecordDisplay1.DoubleTapZoomSensitivity = 2.5D;
+            this.cogRecordDisplay1.Location = new System.Drawing.Point(3, 3);
+            this.cogRecordDisplay1.MouseWheelMode = Cognex.VisionPro.Display.CogDisplayMouseWheelModeConstants.Zoom1;
+            this.cogRecordDisplay1.MouseWheelSensitivity = 1D;
+            this.cogRecordDisplay1.Name = "cogRecordDisplay1";
+            this.cogRecordDisplay1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("cogRecordDisplay1.OcxState")));
+            this.cogRecordDisplay1.Size = new System.Drawing.Size(582, 375);
+            this.cogRecordDisplay1.TabIndex = 25;
             // 
             // nFail
             // 
@@ -185,7 +211,7 @@ namespace VisionPro_Tut
             this.btnRunContinue.TabIndex = 19;
             this.btnRunContinue.Text = "Run Continue";
             this.btnRunContinue.UseVisualStyleBackColor = true;
-            this.btnRunContinue.Click += new System.EventHandler(this.btnRunContinue_Click);
+            this.btnRunContinue.Click += new System.EventHandler(this.btn_Click_Event);
             // 
             // btnRun
             // 
@@ -195,7 +221,7 @@ namespace VisionPro_Tut
             this.btnRun.TabIndex = 19;
             this.btnRun.Text = "Run Once";
             this.btnRun.UseVisualStyleBackColor = true;
-            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+            this.btnRun.Click += new System.EventHandler(this.btn_Click_Event);
             // 
             // tabPage_Manual
             // 
@@ -229,6 +255,11 @@ namespace VisionPro_Tut
             // 
             // tabPage_Setting
             // 
+            this.tabPage_Setting.Controls.Add(this.btnSaveParam);
+            this.tabPage_Setting.Controls.Add(this.lb_Toolblock);
+            this.tabPage_Setting.Controls.Add(this.lb_ImgDatabase);
+            this.tabPage_Setting.Controls.Add(this.label3);
+            this.tabPage_Setting.Controls.Add(this.label1);
             this.tabPage_Setting.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Setting.Name = "tabPage_Setting";
             this.tabPage_Setting.Padding = new System.Windows.Forms.Padding(3);
@@ -236,6 +267,54 @@ namespace VisionPro_Tut
             this.tabPage_Setting.TabIndex = 4;
             this.tabPage_Setting.Text = "Setting";
             this.tabPage_Setting.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveParam
+            // 
+            this.btnSaveParam.Location = new System.Drawing.Point(11, 136);
+            this.btnSaveParam.Name = "btnSaveParam";
+            this.btnSaveParam.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveParam.TabIndex = 4;
+            this.btnSaveParam.Text = "Save";
+            this.btnSaveParam.UseVisualStyleBackColor = true;
+            this.btnSaveParam.Click += new System.EventHandler(this.btn_Click_Event);
+            // 
+            // lb_Toolblock
+            // 
+            this.lb_Toolblock.AutoSize = true;
+            this.lb_Toolblock.Location = new System.Drawing.Point(142, 67);
+            this.lb_Toolblock.Name = "lb_Toolblock";
+            this.lb_Toolblock.Size = new System.Drawing.Size(105, 17);
+            this.lb_Toolblock.TabIndex = 3;
+            this.lb_Toolblock.Text = "Toolblock_path";
+            this.lb_Toolblock.Click += new System.EventHandler(this.label_Click_Event);
+            // 
+            // lb_ImgDatabase
+            // 
+            this.lb_ImgDatabase.AutoSize = true;
+            this.lb_ImgDatabase.Location = new System.Drawing.Point(142, 30);
+            this.lb_ImgDatabase.Name = "lb_ImgDatabase";
+            this.lb_ImgDatabase.Size = new System.Drawing.Size(97, 17);
+            this.lb_ImgDatabase.TabIndex = 2;
+            this.lb_ImgDatabase.Text = "Img_database";
+            this.lb_ImgDatabase.Click += new System.EventHandler(this.label_Click_Event);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 67);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(70, 17);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "ToolBlock";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Image Database";
             // 
             // tabPage_Log
             // 
@@ -247,75 +326,68 @@ namespace VisionPro_Tut
             this.tabPage_Log.Text = "Log";
             this.tabPage_Log.UseVisualStyleBackColor = true;
             // 
-            // lbLogo
-            // 
-            this.lbLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLogo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbLogo.Location = new System.Drawing.Point(1, 24);
-            this.lbLogo.Name = "lbLogo";
-            this.lbLogo.Size = new System.Drawing.Size(108, 48);
-            this.lbLogo.TabIndex = 2;
-            this.lbLogo.Text = "Logo";
-            this.lbLogo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lbTitle
             // 
             this.lbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbTitle.Location = new System.Drawing.Point(115, 24);
+            this.lbTitle.Location = new System.Drawing.Point(65, 5);
             this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(626, 48);
+            this.lbTitle.Size = new System.Drawing.Size(687, 48);
             this.lbTitle.TabIndex = 2;
             this.lbTitle.Text = "VisionPro Tutorial";
             this.lbTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbDateTime
             // 
-            this.lbDateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDateTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbDateTime.Location = new System.Drawing.Point(747, 24);
+            this.lbDateTime.Location = new System.Drawing.Point(674, 5);
             this.lbDateTime.Name = "lbDateTime";
-            this.lbDateTime.Size = new System.Drawing.Size(108, 48);
+            this.lbDateTime.Size = new System.Drawing.Size(181, 48);
             this.lbDateTime.TabIndex = 3;
             this.lbDateTime.Text = "Date-Time";
             this.lbDateTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // cogRecordDisplay1
+            // timer_DateTime
             // 
-            this.cogRecordDisplay1.ColorMapLowerClipColor = System.Drawing.Color.Black;
-            this.cogRecordDisplay1.ColorMapLowerRoiLimit = 0D;
-            this.cogRecordDisplay1.ColorMapPredefined = Cognex.VisionPro.Display.CogDisplayColorMapPredefinedConstants.None;
-            this.cogRecordDisplay1.ColorMapUpperClipColor = System.Drawing.Color.Black;
-            this.cogRecordDisplay1.ColorMapUpperRoiLimit = 1D;
-            this.cogRecordDisplay1.DoubleTapZoomCycleLength = 2;
-            this.cogRecordDisplay1.DoubleTapZoomSensitivity = 2.5D;
-            this.cogRecordDisplay1.Location = new System.Drawing.Point(3, 3);
-            this.cogRecordDisplay1.MouseWheelMode = Cognex.VisionPro.Display.CogDisplayMouseWheelModeConstants.Zoom1;
-            this.cogRecordDisplay1.MouseWheelSensitivity = 1D;
-            this.cogRecordDisplay1.Name = "cogRecordDisplay1";
-            this.cogRecordDisplay1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("cogRecordDisplay1.OcxState")));
-            this.cogRecordDisplay1.Size = new System.Drawing.Size(582, 375);
-            this.cogRecordDisplay1.TabIndex = 25;
+            this.timer_DateTime.Enabled = true;
+            this.timer_DateTime.Interval = 1000;
+            this.timer_DateTime.Tick += new System.EventHandler(this.timer_DateTime_Tick);
+            // 
+            // pictureBoxLogo
+            // 
+            this.pictureBoxLogo.Image = global::VisionPro_Tut.Properties.Resources.Vietnam;
+            this.pictureBoxLogo.Location = new System.Drawing.Point(4, 5);
+            this.pictureBoxLogo.Name = "pictureBoxLogo";
+            this.pictureBoxLogo.Size = new System.Drawing.Size(64, 50);
+            this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxLogo.TabIndex = 4;
+            this.pictureBoxLogo.TabStop = false;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 529);
+            this.ClientSize = new System.Drawing.Size(855, 565);
             this.Controls.Add(this.lbDateTime);
+            this.Controls.Add(this.pictureBoxLogo);
             this.Controls.Add(this.lbTitle);
-            this.Controls.Add(this.lbLogo);
             this.Controls.Add(this.tabControl_Main);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "VisionPro Tutotial";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl_Main.ResumeLayout(false);
             this.tabPage_Auto.ResumeLayout(false);
             this.tabPage_Auto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cogRecordDisplay1)).EndInit();
+            this.tabPage_Setting.ResumeLayout(false);
+            this.tabPage_Setting.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,7 +402,6 @@ namespace VisionPro_Tut
         private System.Windows.Forms.TabControl tabControl_Main;
         private System.Windows.Forms.TabPage tabPage_Auto;
         private System.Windows.Forms.TabPage tabPage_Manual;
-        private System.Windows.Forms.Label lbLogo;
         private System.Windows.Forms.Label lbTitle;
         private System.Windows.Forms.Label lbDateTime;
         private System.Windows.Forms.TabPage tabPage_Interface;
@@ -345,6 +416,13 @@ namespace VisionPro_Tut
         private System.Windows.Forms.Button btnRunContinue;
         private System.Windows.Forms.Button btnRun;
         private Cognex.VisionPro.CogRecordDisplay cogRecordDisplay1;
+        private System.Windows.Forms.Label lb_Toolblock;
+        private System.Windows.Forms.Label lb_ImgDatabase;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSaveParam;
+        private System.Windows.Forms.Timer timer_DateTime;
+        private System.Windows.Forms.PictureBox pictureBoxLogo;
     }
 }
 

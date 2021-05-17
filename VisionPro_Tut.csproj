@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cognex.VisionPro, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.Blob, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.Blob.Controls, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.Controls, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.Core, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
@@ -45,6 +46,9 @@
     <Reference Include="Cognex.VisionPro.QuickBuild.Controls, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.ToolGroup, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.ToolGroup.Controls, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="QWhale.Common, Version=1.62.4104.36375, Culture=neutral, PublicKeyToken=da632fd1713dff10" />
@@ -70,7 +74,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CogBlobTool.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +84,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\MyDefine.cs" />
     <Compile Include="Source\ObjectManager.cs" />
+    <Compile Include="Source\SaveLoadParameter.cs" />
     <Compile Include="Windows\ToolBlockWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,10 +99,12 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Windows\ToolBlockWindow.resx">
       <DependentUpon>ToolBlockWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -111,6 +117,85 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pictures\1.ico" />
+    <Content Include="Pictures\2.ico" />
+    <Content Include="Pictures\3.ico" />
+    <Content Include="Pictures\4.ico" />
+    <Content Include="Pictures\add.png" />
+    <Content Include="Pictures\Auto.JPG" />
+    <Content Include="Pictures\back.png" />
+    <Content Include="Pictures\box.PNG" />
+    <Content Include="Pictures\capture.png" />
+    <Content Include="Pictures\circle1.png" />
+    <Content Include="Pictures\connect.png" />
+    <Content Include="Pictures\conveyor.png" />
+    <Content Include="Pictures\conveyor1.png" />
+    <Content Include="Pictures\Data.JPG" />
+    <Content Include="Pictures\dot1.ico" />
+    <Content Include="Pictures\down.png" />
+    <Content Include="Pictures\download.png" />
+    <Content Include="Pictures\down_pos.png" />
+    <Content Include="Pictures\DSTG.ico" />
+    <Content Include="Pictures\ERROR.bmp" />
+    <Content Include="Pictures\exit.jpg" />
+    <Content Include="Pictures\exit.png" />
+    <Content Include="Pictures\function.png" />
+    <Content Include="Pictures\go straight.png" />
+    <Content Include="Pictures\green_ville_1 documents_yellow_edit_yellow.jpg" />
+    <Content Include="Pictures\Help.JPG" />
+    <Content Include="Pictures\home_pos.png" />
+    <Content Include="Pictures\ico00004.ico" />
+    <Content Include="Pictures\insp.PNG" />
+    <Content Include="Pictures\JUST SOME PIXELS ICON_.jpg" />
+    <Content Include="Pictures\left.ico" />
+    <Content Include="Pictures\left.png" />
+    <Content Include="Pictures\Line.jpg" />
+    <Content Include="Pictures\Log.JPG" />
+    <Content Include="Pictures\Logo.png" />
+    <Content Include="Pictures\Log_Off.ico" />
+    <Content Include="Pictures\Log_Off.png" />
+    <Content Include="Pictures\Log_On.ico" />
+    <Content Include="Pictures\Log_On.png" />
+    <Content Include="Pictures\Manual.JPG" />
+    <Content Include="Pictures\MC.ico" />
+    <Content Include="Pictures\MMR.jpg" />
+    <Content Include="Pictures\new.png" />
+    <Content Include="Pictures\next.png" />
+    <Content Include="Pictures\next1.png" />
+    <Content Include="Pictures\OFF.png" />
+    <Content Include="Pictures\ON.png" />
+    <Content Include="Pictures\org.png" />
+    <Content Include="Pictures\org1.png" />
+    <Content Include="Pictures\org2.png" />
+    <Content Include="Pictures\org3.png" />
+    <Content Include="Pictures\PID.bmp" />
+    <Content Include="Pictures\refresh.png" />
+    <Content Include="Pictures\reset.png" />
+    <Content Include="Pictures\RFID.ico" />
+    <Content Include="Pictures\right.ico" />
+    <Content Include="Pictures\right.png" />
+    <Content Include="Pictures\RunMode.ico" />
+    <Content Include="Pictures\save.png" />
+    <Content Include="Pictures\set.png" />
+    <Content Include="Pictures\setting.png" />
+    <Content Include="Pictures\setting1.png" />
+    <Content Include="Pictures\Simple Remix Bitmap Image.bmp" />
+    <Content Include="Pictures\smooth_metal_png program-folder_yellow.jpg" />
+    <Content Include="Pictures\Speed.ico" />
+    <Content Include="Pictures\Speed.jpg" />
+    <Content Include="Pictures\SQL.jpg" />
+    <Content Include="Pictures\start.png" />
+    <Content Include="Pictures\step.jpg" />
+    <Content Include="Pictures\stop.png" />
+    <Content Include="Pictures\Teach.JPG" />
+    <Content Include="Pictures\turn.png" />
+    <Content Include="Pictures\up.png" />
+    <Content Include="Pictures\upload.png" />
+    <Content Include="Pictures\Upsv.png" />
+    <Content Include="Pictures\up_pos.png" />
+    <Content Include="Pictures\Vietnam.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
