@@ -1,0 +1,11 @@
+{
+  "using_image_database": true,
+  "file_image_database": "C:\\Program Files\\Cognex\\VisionPro\\Images\\2DSymbol.idb",
+  "file_vpp": "C:\\Users\\Admin\\Desktop\\Vpp_file\\TB_v4.vpp",
+  "numOK": 0,
+  "numNG": 0,
+  "blob_filter": {
+    "area_low": 400.0,
+    "area_high": 50000.0
+  }
+}

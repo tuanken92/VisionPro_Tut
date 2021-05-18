@@ -59,6 +59,11 @@ namespace VisionPro_Tut
             this.lbDateTime = new System.Windows.Forms.Label();
             this.timer_DateTime = new System.Windows.Forms.Timer(this.components);
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbAreaLowBlob = new System.Windows.Forms.TextBox();
+            this.tbAreaHighBlob = new System.Windows.Forms.TextBox();
+            this.btnResetJob = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl_Main.SuspendLayout();
             this.tabPage_Auto.SuspendLayout();
@@ -72,7 +77,7 @@ namespace VisionPro_Tut
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolBlockToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(4, 537);
+            this.menuStrip1.Location = new System.Drawing.Point(4, 562);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(78, 24);
             this.menuStrip1.TabIndex = 0;
@@ -92,14 +97,14 @@ namespace VisionPro_Tut
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadToolStripMenuItem.Text = "Load";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // tabControl_Main
             // 
@@ -116,14 +121,16 @@ namespace VisionPro_Tut
             this.tabControl_Main.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl_Main.ItemSize = new System.Drawing.Size(96, 50);
             this.tabControl_Main.Location = new System.Drawing.Point(0, 56);
+            this.tabControl_Main.Multiline = true;
             this.tabControl_Main.Name = "tabControl_Main";
             this.tabControl_Main.SelectedIndex = 0;
-            this.tabControl_Main.Size = new System.Drawing.Size(855, 478);
+            this.tabControl_Main.Size = new System.Drawing.Size(855, 503);
             this.tabControl_Main.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl_Main.TabIndex = 1;
             // 
             // tabPage_Auto
             // 
+            this.tabPage_Auto.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage_Auto.Controls.Add(this.cogRecordDisplay1);
             this.tabPage_Auto.Controls.Add(this.nFail);
             this.tabPage_Auto.Controls.Add(this.nPass);
@@ -131,14 +138,14 @@ namespace VisionPro_Tut
             this.tabPage_Auto.Controls.Add(this.label4);
             this.tabPage_Auto.Controls.Add(this.label2);
             this.tabPage_Auto.Controls.Add(this.btnRunContinue);
+            this.tabPage_Auto.Controls.Add(this.btnResetJob);
             this.tabPage_Auto.Controls.Add(this.btnRun);
             this.tabPage_Auto.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Auto.Name = "tabPage_Auto";
             this.tabPage_Auto.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Auto.Size = new System.Drawing.Size(847, 420);
+            this.tabPage_Auto.Size = new System.Drawing.Size(847, 445);
             this.tabPage_Auto.TabIndex = 0;
             this.tabPage_Auto.Text = "Auto";
-            this.tabPage_Auto.UseVisualStyleBackColor = true;
             // 
             // cogRecordDisplay1
             // 
@@ -154,13 +161,13 @@ namespace VisionPro_Tut
             this.cogRecordDisplay1.MouseWheelSensitivity = 1D;
             this.cogRecordDisplay1.Name = "cogRecordDisplay1";
             this.cogRecordDisplay1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("cogRecordDisplay1.OcxState")));
-            this.cogRecordDisplay1.Size = new System.Drawing.Size(582, 375);
+            this.cogRecordDisplay1.Size = new System.Drawing.Size(694, 436);
             this.cogRecordDisplay1.TabIndex = 25;
             // 
             // nFail
             // 
             this.nFail.AutoSize = true;
-            this.nFail.Location = new System.Drawing.Point(667, 195);
+            this.nFail.Location = new System.Drawing.Point(765, 290);
             this.nFail.Name = "nFail";
             this.nFail.Size = new System.Drawing.Size(16, 17);
             this.nFail.TabIndex = 24;
@@ -169,7 +176,7 @@ namespace VisionPro_Tut
             // nPass
             // 
             this.nPass.AutoSize = true;
-            this.nPass.Location = new System.Drawing.Point(667, 175);
+            this.nPass.Location = new System.Drawing.Point(765, 270);
             this.nPass.Name = "nPass";
             this.nPass.Size = new System.Drawing.Size(16, 17);
             this.nPass.TabIndex = 23;
@@ -179,7 +186,7 @@ namespace VisionPro_Tut
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(600, 152);
+            this.label6.Location = new System.Drawing.Point(703, 247);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(52, 13);
             this.label6.TabIndex = 22;
@@ -188,7 +195,7 @@ namespace VisionPro_Tut
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(605, 195);
+            this.label4.Location = new System.Drawing.Point(703, 290);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 17);
             this.label4.TabIndex = 21;
@@ -197,7 +204,7 @@ namespace VisionPro_Tut
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(605, 174);
+            this.label2.Location = new System.Drawing.Point(703, 269);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 17);
             this.label2.TabIndex = 20;
@@ -205,9 +212,9 @@ namespace VisionPro_Tut
             // 
             // btnRunContinue
             // 
-            this.btnRunContinue.Location = new System.Drawing.Point(603, 324);
+            this.btnRunContinue.Location = new System.Drawing.Point(705, 317);
             this.btnRunContinue.Name = "btnRunContinue";
-            this.btnRunContinue.Size = new System.Drawing.Size(134, 24);
+            this.btnRunContinue.Size = new System.Drawing.Size(134, 34);
             this.btnRunContinue.TabIndex = 19;
             this.btnRunContinue.Text = "Run Continue";
             this.btnRunContinue.UseVisualStyleBackColor = true;
@@ -215,9 +222,9 @@ namespace VisionPro_Tut
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(603, 354);
+            this.btnRun.Location = new System.Drawing.Point(705, 361);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(134, 24);
+            this.btnRun.Size = new System.Drawing.Size(134, 34);
             this.btnRun.TabIndex = 19;
             this.btnRun.Text = "Run Once";
             this.btnRun.UseVisualStyleBackColor = true;
@@ -228,7 +235,7 @@ namespace VisionPro_Tut
             this.tabPage_Manual.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Manual.Name = "tabPage_Manual";
             this.tabPage_Manual.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Manual.Size = new System.Drawing.Size(847, 384);
+            this.tabPage_Manual.Size = new System.Drawing.Size(847, 445);
             this.tabPage_Manual.TabIndex = 1;
             this.tabPage_Manual.Text = "Manual";
             this.tabPage_Manual.UseVisualStyleBackColor = true;
@@ -238,7 +245,7 @@ namespace VisionPro_Tut
             this.tabPage_Interface.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Interface.Name = "tabPage_Interface";
             this.tabPage_Interface.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Interface.Size = new System.Drawing.Size(847, 384);
+            this.tabPage_Interface.Size = new System.Drawing.Size(847, 445);
             this.tabPage_Interface.TabIndex = 2;
             this.tabPage_Interface.Text = "Interface";
             this.tabPage_Interface.UseVisualStyleBackColor = true;
@@ -248,13 +255,17 @@ namespace VisionPro_Tut
             this.tabPage_Parameter.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Parameter.Name = "tabPage_Parameter";
             this.tabPage_Parameter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Parameter.Size = new System.Drawing.Size(847, 384);
+            this.tabPage_Parameter.Size = new System.Drawing.Size(847, 445);
             this.tabPage_Parameter.TabIndex = 3;
             this.tabPage_Parameter.Text = "Parameter";
             this.tabPage_Parameter.UseVisualStyleBackColor = true;
             // 
             // tabPage_Setting
             // 
+            this.tabPage_Setting.Controls.Add(this.tbAreaHighBlob);
+            this.tabPage_Setting.Controls.Add(this.tbAreaLowBlob);
+            this.tabPage_Setting.Controls.Add(this.label7);
+            this.tabPage_Setting.Controls.Add(this.label5);
             this.tabPage_Setting.Controls.Add(this.btnSaveParam);
             this.tabPage_Setting.Controls.Add(this.lb_Toolblock);
             this.tabPage_Setting.Controls.Add(this.lb_ImgDatabase);
@@ -263,16 +274,16 @@ namespace VisionPro_Tut
             this.tabPage_Setting.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Setting.Name = "tabPage_Setting";
             this.tabPage_Setting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Setting.Size = new System.Drawing.Size(847, 384);
+            this.tabPage_Setting.Size = new System.Drawing.Size(847, 445);
             this.tabPage_Setting.TabIndex = 4;
             this.tabPage_Setting.Text = "Setting";
             this.tabPage_Setting.UseVisualStyleBackColor = true;
             // 
             // btnSaveParam
             // 
-            this.btnSaveParam.Location = new System.Drawing.Point(11, 136);
+            this.btnSaveParam.Location = new System.Drawing.Point(11, 214);
             this.btnSaveParam.Name = "btnSaveParam";
-            this.btnSaveParam.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveParam.Size = new System.Drawing.Size(75, 35);
             this.btnSaveParam.TabIndex = 4;
             this.btnSaveParam.Text = "Save";
             this.btnSaveParam.UseVisualStyleBackColor = true;
@@ -321,7 +332,7 @@ namespace VisionPro_Tut
             this.tabPage_Log.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Log.Name = "tabPage_Log";
             this.tabPage_Log.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Log.Size = new System.Drawing.Size(847, 384);
+            this.tabPage_Log.Size = new System.Drawing.Size(847, 445);
             this.tabPage_Log.TabIndex = 5;
             this.tabPage_Log.Text = "Log";
             this.tabPage_Log.UseVisualStyleBackColor = true;
@@ -364,11 +375,53 @@ namespace VisionPro_Tut
             this.pictureBoxLogo.TabIndex = 4;
             this.pictureBoxLogo.TabStop = false;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(8, 105);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(146, 17);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Area Low Filter Value:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(8, 142);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(150, 17);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Area High Filter Value:";
+            // 
+            // tbAreaLowBlob
+            // 
+            this.tbAreaLowBlob.Location = new System.Drawing.Point(189, 99);
+            this.tbAreaLowBlob.Name = "tbAreaLowBlob";
+            this.tbAreaLowBlob.Size = new System.Drawing.Size(100, 23);
+            this.tbAreaLowBlob.TabIndex = 7;
+            // 
+            // tbAreaHighBlob
+            // 
+            this.tbAreaHighBlob.Location = new System.Drawing.Point(189, 136);
+            this.tbAreaHighBlob.Name = "tbAreaHighBlob";
+            this.tbAreaHighBlob.Size = new System.Drawing.Size(100, 23);
+            this.tbAreaHighBlob.TabIndex = 7;
+            // 
+            // btnResetJob
+            // 
+            this.btnResetJob.Location = new System.Drawing.Point(705, 405);
+            this.btnResetJob.Name = "btnResetJob";
+            this.btnResetJob.Size = new System.Drawing.Size(134, 34);
+            this.btnResetJob.TabIndex = 19;
+            this.btnResetJob.Text = "Reset Job";
+            this.btnResetJob.UseVisualStyleBackColor = true;
+            this.btnResetJob.Click += new System.EventHandler(this.btn_Click_Event);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 565);
+            this.ClientSize = new System.Drawing.Size(855, 595);
             this.Controls.Add(this.lbDateTime);
             this.Controls.Add(this.pictureBoxLogo);
             this.Controls.Add(this.lbTitle);
@@ -423,6 +476,11 @@ namespace VisionPro_Tut
         private System.Windows.Forms.Button btnSaveParam;
         private System.Windows.Forms.Timer timer_DateTime;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
+        private System.Windows.Forms.TextBox tbAreaHighBlob;
+        private System.Windows.Forms.TextBox tbAreaLowBlob;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnResetJob;
     }
 }
 

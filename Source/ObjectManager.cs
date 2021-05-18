@@ -22,9 +22,9 @@ namespace VisionPro_Tut.Source
 
         public ObjectManager()
         {
-            mToolBlock = null;
-            mIFTool = null;
-            mAcqTool = null;
+            mToolBlock = new CogToolBlock();
+            mIFTool = new CogImageFileTool();
+            mAcqTool = new CogAcqFifoTool();
             
             numPass = 0;
             numFail = 0;
@@ -36,16 +36,16 @@ namespace VisionPro_Tut.Source
         {
 
             Common.Print_Infor();
-
             numPass = Common.numOK;
             numFail = Common.numNG;
             bUseImageDatabase = Common.using_image_database;
 
-            mToolBlock = new CogToolBlock();
+            
             mToolBlock = CogSerializer.LoadObjectFromFile(Common.file_vpp) as CogToolBlock;
-            mIFTool = new CogImageFileTool();
+            ToolBlock_PrintInfor();
+
+            
             mIFTool.Operator.Open(Common.file_image_database, CogImageFileModeConstants.Read);
-            mAcqTool = new CogAcqFifoTool();
             // If no camera is attached, disable the radio button
             if (mAcqTool.Operator == null)
             {
@@ -57,6 +57,49 @@ namespace VisionPro_Tut.Source
             }
         }
 
+        public void ToolBlock_PrintInfor()
+        {
+            int numTools = mToolBlock.Tools.Count;
+            Console.WriteLine("-------------Toolblock begin----------------");
+            Console.WriteLine("-------------element");
+            for(int i =0; i< numTools; i++)
+            {
+                Console.WriteLine($"{mToolBlock.Tools[i].Name}");
+
+                //cur record
+                Cognex.VisionPro.ICogRecord tmpRecord = mToolBlock.Tools[i].CreateCurrentRecord();
+                Console.WriteLine($"\ttmpRecord currentRecord = {tmpRecord.Annotation}");
+                for (int j = 0; j < tmpRecord.SubRecords.Count; j++)
+                {
+                    Console.WriteLine($"\t\tj = {j}: {tmpRecord.SubRecords[j].Annotation}");
+                }
+
+
+                //lastest record
+                tmpRecord = mToolBlock.Tools[i].CreateLastRunRecord();
+                Console.WriteLine($"\ttmpRecord LastRecord = {tmpRecord.Annotation}");
+                for (int j = 0; j < tmpRecord.SubRecords.Count; j++)
+                {
+                    Console.WriteLine($"\t\tj = {j}: {tmpRecord.SubRecords[j].Annotation}");
+                }
+            }
+
+            Console.WriteLine("-------------input");
+            int numInputs = mToolBlock.Inputs.Count;
+            for (int i = 0; i < numInputs; i++)
+            {
+                Console.WriteLine($"{mToolBlock.Inputs[i].Name}");
+            }
+
+            Console.WriteLine("-------------output");
+            int numOutputs = mToolBlock.Outputs.Count;
+            for (int i = 0; i < numOutputs; i++)
+            {
+                Console.WriteLine($"{mToolBlock.Outputs[i].Name}");
+            }
+
+            Console.WriteLine("-------------Toolblock end----------------");
+        }
         public void UpdateData(MyDefine Common)
         {
             mToolBlock = CogSerializer.LoadObjectFromFile(Common.file_vpp) as CogToolBlock;
@@ -102,11 +145,13 @@ namespace VisionPro_Tut.Source
                 mIFTool.Dispose();
             if (mAcqTool != null)
                 mAcqTool.Dispose();
+            if (mToolBlock != null)
+                mToolBlock.Dispose();
         }
 
         ~ObjectManager()
         {
-
+            ReleaseObject();
         }
     }
 }

@@ -104,6 +104,7 @@
     <EmbeddedResource Include="Windows\ToolBlockWindow.resx">
       <DependentUpon>ToolBlockWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Data\config_param.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

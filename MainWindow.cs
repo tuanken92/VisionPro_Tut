@@ -16,45 +16,12 @@ namespace VisionPro_Tut
 {
     public partial class MainWindow : Form
     {
-
-        //manager variale, object here
         #region declare variable, object 
         MyDefine common = null;
         ObjectManager objectManager = null;
         SaveLoadParameter settingParam = null;
         #endregion
 
-
-        void Initial()
-        {
-            common = new MyDefine();
-            settingParam = new SaveLoadParameter();
-            bool isLoadSuccess = settingParam.Load_Parameter(ref common);
-
-            objectManager = new ObjectManager();
-            objectManager.InitObject(common);
-            objectManager.mToolBlock.Ran += MToolBlock_Ran;
-            //objectManager.mToolBlock.Inputs["FilterLowValue"].Value = nAreaLow.Value;
-            //objectManager.mToolBlock.Inputs["FilterHighValue"].Value = nAreaHigh.Value;
-
-
-
-            //gui
-            //this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-        }
-
-        void UpdateUI()
-        {
-            lb_Toolblock.Text = common.file_vpp;
-            lb_ImgDatabase.Text = common.file_image_database;
-        }
-
-        void UpdateParam()
-        {
-            common.file_image_database = lb_ImgDatabase.Text;
-            common.file_vpp = lb_Toolblock.Text;
-            common.Print_Infor();
-        }
         //Consider code
         public MainWindow()
         {
@@ -63,41 +30,144 @@ namespace VisionPro_Tut
             UpdateUI();
         }
 
-
-        #region manager event here
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        #region funtion process
+        void Initial()
         {
-            Console.WriteLine("load tool block");
-            objectManager.UpdateData(common);
-            ToolBlockWindow win2 = new ToolBlockWindow(objectManager);
-            win2.Show();
+            common = new MyDefine();
+            settingParam = new SaveLoadParameter();
+            bool isLoadSuccess = settingParam.Load_Parameter(ref common);
+
+            objectManager = new ObjectManager();
+            objectManager.InitObject(common);
+            objectManager.mToolBlock.Changed += MToolBlock_Changed;
+            objectManager.mToolBlock.Running += MToolBlock_Running;
+            objectManager.mToolBlock.Ran += MToolBlock_Ran;
+            objectManager.mToolBlock.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
+            objectManager.mToolBlock.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
+
+
+
+            //gui
+            //this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+
+
+        void UpdateUI()
         {
-            Console.WriteLine("save tool block");
+            lb_Toolblock.Text = common.file_vpp;
+            lb_ImgDatabase.Text = common.file_image_database;
+            tbAreaHighBlob.Text = common.blob_filter.area_high.ToString();
+            tbAreaLowBlob.Text = common.blob_filter.area_low.ToString();
+            nPass.Text = common.numOK.ToString();
+            nFail.Text = common.numNG.ToString();
         }
 
-     
+        void UpdateParam()
+        {
+            common.file_image_database = lb_ImgDatabase.Text;
+            common.file_vpp = lb_Toolblock.Text;
+            common.blob_filter.area_high = Double.Parse(tbAreaHighBlob.Text);
+            common.blob_filter.area_low = Double.Parse(tbAreaLowBlob.Text);
+
+            common.Print_Infor();
+        }
+
+        void UpdateToolBlock()
+        {
+
+            objectManager.mToolBlock.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
+            objectManager.mToolBlock.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
+        }
+
+        public void Display(bool result)
+        {
+            CogGraphicLabel cglCaption = new CogGraphicLabel();
+            Font myFont = new Font("Comic Sans MS", 16, FontStyle.Bold);
+
+            // Set it's text and alignment properties
+            cglCaption.Text = result ? "PASS" : "FAIL";
+            cglCaption.Color = result ? CogColorConstants.Green : CogColorConstants.Red;
+
+            cglCaption.Alignment = CogGraphicLabelAlignmentConstants.BottomLeft;
+            // .NET fonts are read only, so create a new font and then
+            // push this font object onto the Font property of the label
+            // myFont = new Font("Comic Sans MS", 18, FontStyle.Bold);                        
+
+            cglCaption.Font = myFont;
+
+            // Set its space to be '*' - anchored to the image
+            cglCaption.SelectedSpaceName = "*";
+
+            // Position the label over the CogDisplay
+            cglCaption.X = 50;
+            cglCaption.Y = 50;
+
+            // Add the label to the CogDisplay
+            cogRecordDisplay1.InteractiveGraphics.Add(cglCaption, cglCaption.Text, false);
+            cglCaption.Dispose();
+            myFont.Dispose();
+        }
+
+        #endregion
+
+        #region Manager Event
+
+        #region MToolBlock event
+
+        private void MToolBlock_Changed(object sender, CogChangedEventArgs e)
+        {
+            // To see what has changed, look at the state flags that are contained in 
+            // the CogChangedEventArgs object.  The StateFlags property is a bitfield,
+            // where each bit represents a single element of the tool that may have changed.  If a bit
+            // is asserted, that element in the tool has changed.  Multiple bits may be asserted
+            // simultaneously.  To see what has changed, bitwise AND the StateFlags with the static
+            // Sf**** members in the tool class.  If it returns a value greater than 0, then that
+            // particular element has changed.  
+
+            // In the example below, we are testing to see if the RunStatus property has changed
+            // by bitwise AND'ing StateFlags with SfRunStatus.
+
+            // Report error conditions, if any.
+            Console.WriteLine("MToolBlock_Changed");
+            if ((e.StateFlags & CogBlobTool.SfRunStatus) > 0)
+            {
+                if (objectManager.mToolBlock.RunStatus.Result == CogToolResultConstants.Error)
+                    MessageBox.Show(objectManager.mToolBlock.RunStatus.Message);
+            }
+        }
+
+        private void MToolBlock_Running(object sender, EventArgs e)
+        {
+            // Get input image.
+            Console.WriteLine("MToolBlock_Running");
+            //objectManager.mIFTool.Run();
+            //objectManager.mToolBlock.Inputs["Image"].Value = objectManager.mIFTool.OutputImage as CogImage8Grey;
+        }
 
         private void MToolBlock_Ran(object sender, EventArgs e)
         {
             // This method executes each time the TB runs
-            if ((bool)(objectManager.mToolBlock.Outputs["InspectionPassed"].Value) == true)
+            bool result = (bool)(objectManager.mToolBlock.Outputs["InspectionPassed"].Value);
+            if (result)
                 objectManager.numPass++;
             else
                 objectManager.numFail++;
             // Update the label with pass and fail
             nPass.Text = objectManager.numPass.ToString();
             nFail.Text = objectManager.numFail.ToString();
-            // Update the CogDisplayRecord with the lastRunRecord
 
             CogBlobTool mBlobTool = objectManager.mToolBlock.Tools["CogBlobTool1"] as CogBlobTool;
-            cogRecordDisplay1.Record = mBlobTool.CreateLastRunRecord();
 
-            // Update the CogDisplayRecord with the image 
-            cogRecordDisplay1.Image = objectManager.mToolBlock.Inputs["Image"].Value as CogImage8Grey;
+            //Assign picture to display
+            ICogRecord temp = mBlobTool.CreateLastRunRecord();
+            //temp = temp.SubRecords["BlobImage"];
+            temp = temp.SubRecords["InputImage"];
+            cogRecordDisplay1.Record = temp;
             cogRecordDisplay1.Fit(true);
+
+            Display(result);
+            Console.WriteLine("Ran done!, time processing = {0} ms", objectManager.mToolBlock.RunStatus.TotalTime);
         }
 
         private void btn_Click_Event(object sender, EventArgs e)
@@ -116,12 +186,36 @@ namespace VisionPro_Tut
                     UpdateParam();
                     settingParam.Save_Parameter(common);
                     break;
+                case "btnResetJob":
+                    UpdateToolBlock();
+                    break;
+            }
+        }
+        #endregion
+
+
+        private void ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var strip_menu = sender as ToolStripMenuItem;
+            Console.WriteLine("MenuItem click = {0}", strip_menu.Name);
+            switch (strip_menu.Name)
+            {
+                case "loadToolStripMenuItem":
+                    ToolBlockWindow win2 = new ToolBlockWindow(objectManager);
+                    win2.Show();
+                    break;
+
+                case "saveToolStripMenuItem":
+                    break;
+
+                default:
+                    break;
             }
         }
 
         private void label_Click_Event(object sender, EventArgs e)
         {
-            var curLabel= sender as Label;
+            var curLabel = sender as Label;
             Console.WriteLine($"label_Click_Event name = {curLabel.Name}");
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -162,12 +256,13 @@ namespace VisionPro_Tut
             }
         }
 
-        #endregion
 
         protected override void Dispose(bool disposing)
         {
             // Disconnect the event handlers before closing the form
             objectManager.mToolBlock.Ran -= new EventHandler(MToolBlock_Ran);
+            objectManager.mToolBlock.Running -= new EventHandler(MToolBlock_Running);
+            objectManager.mToolBlock.Changed -= new CogChangedEventHandler(MToolBlock_Changed);
 
             if (disposing && (components != null))
             {
@@ -176,7 +271,9 @@ namespace VisionPro_Tut
             base.Dispose(disposing);
         }
 
-        #region timer for date-time
+        #endregion
+
+        #region timer for date-time display
         private void timer_DateTime_Tick(object sender, EventArgs e)
         {
             this.lbDateTime.Text = DateTime.Now.ToString("ddd MM/dd/yyyy\nhh:mm::ss tt");
@@ -189,7 +286,10 @@ namespace VisionPro_Tut
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            UpdateParam();
+            settingParam.Save_Parameter(common);
             this.timer_DateTime.Stop();
+
         }
         #endregion
     }
