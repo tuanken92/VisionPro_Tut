@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using VisionPro_Tut.Windows;
-using VisionPro_Tut.Source;
-using Cognex.VisionPro;
-using Cognex.VisionPro.Blob;
-using VisionPro_Tut.Source.Interface;
 using System.Threading;
+using System.Windows.Forms;
+using VisionPro_Tut.Source;
+using VisionPro_Tut.Source.Interface;
 
 namespace VisionPro_Tut
 {

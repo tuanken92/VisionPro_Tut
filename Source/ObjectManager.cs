@@ -1,13 +1,7 @@
 ﻿using Cognex.VisionPro;
-using Cognex.VisionPro.Exceptions;
 using Cognex.VisionPro.ImageFile;
 using Cognex.VisionPro.ToolBlock;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace VisionPro_Tut.Source
 {
@@ -36,7 +30,6 @@ namespace VisionPro_Tut.Source
 
         public void InitObject(MyDefine Common)
         {
-
             Common.Print_Infor();
             numPass = Common.numOK;
             numFail = Common.numNG;

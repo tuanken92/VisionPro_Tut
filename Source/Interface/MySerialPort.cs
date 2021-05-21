@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace VisionPro_Tut.Source.Interface
 {
@@ -13,6 +11,7 @@ namespace VisionPro_Tut.Source.Interface
         private SerialPort serialPort = null;
         private StringBuilder dataReceived = null;
         public List<string> list_comport;
+        public bool is_success = false;
         public StringBuilder DataReceived
         {
             get
@@ -27,7 +26,7 @@ namespace VisionPro_Tut.Source.Interface
         }
 
 
-        public MySerialPort(SerialPortParam param, ref bool is_success)
+        public MySerialPort(SerialPortParam param)
         {
             Console.WriteLine("MySerialPort create");
 
@@ -52,8 +51,11 @@ namespace VisionPro_Tut.Source.Interface
 
         ~MySerialPort()
         {
-            if (serialPort.IsOpen)
-                serialPort.Close();
+            if(is_success)
+            {
+                if (serialPort.IsOpen)
+                    serialPort.Close();
+            }
             Console.WriteLine("SerialPortManager destroy");
         }
 

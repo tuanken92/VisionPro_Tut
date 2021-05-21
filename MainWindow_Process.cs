@@ -1,12 +1,7 @@
 ﻿using Cognex.VisionPro;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using VisionPro_Tut.Source;
 using VisionPro_Tut.Source.Interface;
 
@@ -14,9 +9,6 @@ namespace VisionPro_Tut
 {
     public partial class MainWindow
     {
-
-
-
         #region funtion process
         void Initial()
         {
@@ -32,9 +24,8 @@ namespace VisionPro_Tut
             objectManager.mToolBlockProcess.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
             objectManager.mToolBlockProcess.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
 
-            bool create_serialport = false;
-            serialPort = new MySerialPort(common.serial_port, ref create_serialport);
-            Console.WriteLine($"create_serialport = {create_serialport}");
+            serialPort = new MySerialPort(common.serial_port);
+            Console.WriteLine($"create_serialport = {serialPort.is_success}");
 
             //mode run
             switch (common.mode_run)
@@ -47,7 +38,7 @@ namespace VisionPro_Tut
                     break;
                 case Utils.MODE_RUN.SerialPort:
 
-                    if (create_serialport)
+                    if (serialPort.is_success)
                         serialPort.Connect();
                     myThread = new Thread(new ThreadStart(Thread_Control_By_Serial_Port));
                     myThread.Name = "Thread Control by SeriablPort";

@@ -153,7 +153,8 @@ namespace VisionPro_Tut
                     if (win2.ShowDialog() == DialogResult.OK)
                     {
                         objectManager.mToolBlockProcess = win2.objectManager.mToolBlockProcess;
-                        Console.WriteLine("update done");
+                        objectManager.ToolBlock_PrintInfor(objectManager.mToolBlockProcess);
+                        Console.WriteLine("update done {0}", objectManager.mToolBlockProcess.Name);
                     }
                     win2.Dispose();
                     break;
@@ -168,7 +169,8 @@ namespace VisionPro_Tut
                     if (win3.ShowDialog() == DialogResult.OK)
                     {
                         objectManager.mToolBlockAcq = win3.objectManager.mToolBlockAcq;
-                        Console.WriteLine("update done");
+                        objectManager.ToolBlock_PrintInfor(objectManager.mToolBlockAcq);
+                        Console.WriteLine("update done {0}", objectManager.mToolBlockAcq.Name);
                     }
                     win3.Dispose();
                     break;

@@ -1,8 +1,5 @@
 ﻿using Cognex.VisionPro;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VisionPro_Tut
