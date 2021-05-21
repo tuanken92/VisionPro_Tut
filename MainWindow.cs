@@ -39,12 +39,17 @@ namespace VisionPro_Tut
 
         void UpdateUI()
         {
-            lb_Toolblock.Text = common.file_vpp;
+            lb_Toolblock_Process.Text = common.file_toolblock_process;
+            lb_Toolblock_AcqFifo.Text = common.file_toolblock_acq;
             lb_ImgDatabase.Text = common.file_image_database;
-            tbAreaHighBlob.Text = common.blob_filter.area_high.ToString();
-            tbAreaLowBlob.Text = common.blob_filter.area_low.ToString();
+            cb_UseCamera.Checked = common.use_camera;
+            //result
             nPass.Text = common.numOK.ToString();
             nFail.Text = common.numNG.ToString();
+
+            //param
+            tbAreaHighBlob.Text = common.blob_filter.area_high.ToString();
+            tbAreaLowBlob.Text = common.blob_filter.area_low.ToString();
 
             //cb_Comport
             for (int i = 0; i < serialPort.list_comport.Count; i++)
@@ -63,19 +68,31 @@ namespace VisionPro_Tut
             cbb_ModeRun.DataSource = bindingModeRun.DataSource;
             cbb_ModeRun.Text = common.mode_run.ToString();
 
+            
+
         }
 
         void UpdateParam()
         {
             common.file_image_database = lb_ImgDatabase.Text;
-            common.file_vpp = lb_Toolblock.Text;
+            common.file_toolblock_process = lb_Toolblock_Process.Text;
+            common.file_toolblock_acq = lb_Toolblock_AcqFifo.Text;
+            common.use_camera = cb_UseCamera.Checked;
+            //param
             common.blob_filter.area_high = Double.Parse(tbAreaHighBlob.Text);
             common.blob_filter.area_low = Double.Parse(tbAreaLowBlob.Text);
 
+            //serial port
             common.serial_port.com_name = cbb_Comport.Text;
             common.serial_port.baudrate = int.Parse(cbb_Baudrate.Text);
 
+            //mode run
             Enum.TryParse<Utils.MODE_RUN>(cbb_ModeRun.SelectedValue.ToString(), out common.mode_run);
+
+            //result
+            common.numOK = objectManager.numPass;
+            common.numNG = objectManager.numFail;
+
             common.Print_Infor();
         }
 
@@ -88,10 +105,11 @@ namespace VisionPro_Tut
         {
             this.timer_DateTime.Stop();
             serialPort.Disconnect();
-            
+
             //save param before close form
             UpdateParam();
             settingParam.Save_Parameter(common);
+            objectManager.ReleaseObject();
         }
 
 

@@ -7,12 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using VisionPro_Tut.Source;
 using static VisionPro_Tut.Source.Utils;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace VisionPro_Tut.Source
 {
 
     public class Utils
     {
+        public enum TYPE_OF_TOOLBLOCK
+        {
+            Other = 0,
+            AcqFifo,
+            ImageProcess
+        }
         public enum MODE_RUN
         {
             Manual = 0,
@@ -51,6 +58,23 @@ namespace VisionPro_Tut.Source
 
             return (new List<string>(ArrayComPortsNames));
         }
+
+        public static byte[] Serialize(Object obj)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            BinaryFormatter binaryFomatter = new BinaryFormatter();
+            binaryFomatter.Serialize(memoryStream, obj);
+            return memoryStream.ToArray();
+        }
+
+        public static Object Deserialize(byte[] data)
+        {
+            MemoryStream stream = new MemoryStream(data);
+            BinaryFormatter formatter = new BinaryFormatter();
+            
+            return formatter.Deserialize(stream);
+        }
+
     }
 
     public class BlobFilter
@@ -92,9 +116,11 @@ namespace VisionPro_Tut.Source
     public class MyDefine
     {
 
-        public bool using_image_database = true;
+        public bool use_camera = true;
         public string file_image_database = Environment.GetEnvironmentVariable("VPRO_ROOT") + @"\images\coins.idb";
-        public string file_vpp = Environment.GetEnvironmentVariable("VPRO_ROOT") + @"\samples\programming\toolblock\toolblockload\tb.vpp";
+        public string file_toolblock_process = Environment.GetEnvironmentVariable("VPRO_ROOT") + @"\samples\programming\toolblock\toolblockload\tb.vpp";
+        public string file_toolblock_acq = String.Format($"{projectDirectory}\\Data\\TB_ac3800_10gm.vpp");
+
         public ulong numOK = 0;
         public ulong numNG = 0;
         public MODE_RUN mode_run = MODE_RUN.Manual;
@@ -105,10 +131,10 @@ namespace VisionPro_Tut.Source
         {
             Console.WriteLine("----MyDefine begin---");
             Console.WriteLine($"\tmode run = {mode_run}");
-            Console.WriteLine($"\tusing_image_database = {using_image_database}");
+            Console.WriteLine($"\tuse_camera = {use_camera}");
             Console.WriteLine($"\tfile_image_database = {file_image_database}");
-            Console.WriteLine($"\tfile_vpp = {file_vpp}");
-           
+            Console.WriteLine($"\tfile_toolblock_process = {file_toolblock_process}");
+            Console.WriteLine($"\tfile_toolblock_acq = {file_toolblock_acq}");
             Console.WriteLine($"\tnumber OK = {numOK}");
             Console.WriteLine($"\tnumber NG = {numNG}");
             blob_filter.Print_Infor();

@@ -50,38 +50,43 @@ namespace VisionPro_Tut
             this.tabPage_Interface = new System.Windows.Forms.TabPage();
             this.tabPage_Parameter = new System.Windows.Forms.TabPage();
             this.tabPage_Setting = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.tbAreaLowBlob = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbAreaHighBlob = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.cbb_ModeRun = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.cb_UseCamera = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lb_Toolblock_AcqFifo = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lb_ImgDatabase = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lb_Toolblock_Process = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbb_Baudrate = new System.Windows.Forms.ComboBox();
             this.cbb_Comport = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.tbAreaHighBlob = new System.Windows.Forms.TextBox();
-            this.tbAreaLowBlob = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.btnSaveParam = new System.Windows.Forms.Button();
-            this.lb_Toolblock = new System.Windows.Forms.Label();
-            this.lb_ImgDatabase = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabPage_Log = new System.Windows.Forms.TabPage();
             this.lbTitle = new System.Windows.Forms.Label();
             this.lbDateTime = new System.Windows.Forms.Label();
             this.timer_DateTime = new System.Windows.Forms.Timer(this.components);
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.cbb_ModeRun = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControl_Main.SuspendLayout();
             this.tabPage_Auto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cogRecordDisplay1)).BeginInit();
             this.tabPage_Setting.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -285,6 +290,7 @@ namespace VisionPro_Tut
             // tabPage_Setting
             // 
             this.tabPage_Setting.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_Setting.Controls.Add(this.panel4);
             this.tabPage_Setting.Controls.Add(this.panel3);
             this.tabPage_Setting.Controls.Add(this.panel2);
             this.tabPage_Setting.Controls.Add(this.panel1);
@@ -295,6 +301,162 @@ namespace VisionPro_Tut
             this.tabPage_Setting.Size = new System.Drawing.Size(847, 445);
             this.tabPage_Setting.TabIndex = 4;
             this.tabPage_Setting.Text = "Setting";
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.tbAreaLowBlob);
+            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.label7);
+            this.panel4.Controls.Add(this.tbAreaHighBlob);
+            this.panel4.Location = new System.Drawing.Point(11, 193);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(562, 246);
+            this.panel4.TabIndex = 11;
+            // 
+            // tbAreaLowBlob
+            // 
+            this.tbAreaLowBlob.Location = new System.Drawing.Point(183, 13);
+            this.tbAreaLowBlob.Name = "tbAreaLowBlob";
+            this.tbAreaLowBlob.Size = new System.Drawing.Size(97, 23);
+            this.tbAreaLowBlob.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(146, 17);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Area Low Filter Value:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 49);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(150, 17);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Area High Filter Value:";
+            // 
+            // tbAreaHighBlob
+            // 
+            this.tbAreaHighBlob.Location = new System.Drawing.Point(183, 46);
+            this.tbAreaHighBlob.Name = "tbAreaHighBlob";
+            this.tbAreaHighBlob.Size = new System.Drawing.Size(97, 23);
+            this.tbAreaHighBlob.TabIndex = 7;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.cbb_ModeRun);
+            this.panel3.Controls.Add(this.label10);
+            this.panel3.Location = new System.Drawing.Point(579, 89);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(260, 52);
+            this.panel3.TabIndex = 10;
+            // 
+            // cbb_ModeRun
+            // 
+            this.cbb_ModeRun.FormattingEnabled = true;
+            this.cbb_ModeRun.Location = new System.Drawing.Point(114, 14);
+            this.cbb_ModeRun.Name = "cbb_ModeRun";
+            this.cbb_ModeRun.Size = new System.Drawing.Size(121, 24);
+            this.cbb_ModeRun.TabIndex = 4;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(19, 18);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(69, 17);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "ModeRun";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.cb_UseCamera);
+            this.panel2.Controls.Add(this.label11);
+            this.panel2.Controls.Add(this.lb_Toolblock_AcqFifo);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.lb_ImgDatabase);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.lb_Toolblock_Process);
+            this.panel2.Location = new System.Drawing.Point(11, 6);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(562, 181);
+            this.panel2.TabIndex = 9;
+            // 
+            // cb_UseCamera
+            // 
+            this.cb_UseCamera.AutoSize = true;
+            this.cb_UseCamera.Location = new System.Drawing.Point(15, 101);
+            this.cb_UseCamera.Name = "cb_UseCamera";
+            this.cb_UseCamera.Size = new System.Drawing.Size(105, 21);
+            this.cb_UseCamera.TabIndex = 10;
+            this.cb_UseCamera.Text = "Use Camera";
+            this.cb_UseCamera.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 41);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(121, 17);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "ToolBlock AcqFifo";
+            // 
+            // lb_Toolblock_AcqFifo
+            // 
+            this.lb_Toolblock_AcqFifo.AutoSize = true;
+            this.lb_Toolblock_AcqFifo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_Toolblock_AcqFifo.Location = new System.Drawing.Point(180, 41);
+            this.lb_Toolblock_AcqFifo.Name = "lb_Toolblock_AcqFifo";
+            this.lb_Toolblock_AcqFifo.Size = new System.Drawing.Size(70, 13);
+            this.lb_Toolblock_AcqFifo.TabIndex = 9;
+            this.lb_Toolblock_AcqFifo.Text = "AcqFifo_path";
+            this.lb_Toolblock_AcqFifo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lb_Toolblock_AcqFifo.Click += new System.EventHandler(this.label_Click_Event);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Image Database";
+            // 
+            // lb_ImgDatabase
+            // 
+            this.lb_ImgDatabase.AutoSize = true;
+            this.lb_ImgDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_ImgDatabase.Location = new System.Drawing.Point(180, 11);
+            this.lb_ImgDatabase.Name = "lb_ImgDatabase";
+            this.lb_ImgDatabase.Size = new System.Drawing.Size(74, 13);
+            this.lb_ImgDatabase.TabIndex = 2;
+            this.lb_ImgDatabase.Text = "Img_database";
+            this.lb_ImgDatabase.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lb_ImgDatabase.Click += new System.EventHandler(this.label_Click_Event);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 71);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(125, 17);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "ToolBlock Process";
+            // 
+            // lb_Toolblock_Process
+            // 
+            this.lb_Toolblock_Process.AutoSize = true;
+            this.lb_Toolblock_Process.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_Toolblock_Process.Location = new System.Drawing.Point(180, 71);
+            this.lb_Toolblock_Process.Name = "lb_Toolblock_Process";
+            this.lb_Toolblock_Process.Size = new System.Drawing.Size(72, 13);
+            this.lb_Toolblock_Process.TabIndex = 3;
+            this.lb_Toolblock_Process.Text = "Process_path";
+            this.lb_Toolblock_Process.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lb_Toolblock_Process.Click += new System.EventHandler(this.label_Click_Event);
             // 
             // panel1
             // 
@@ -341,38 +503,6 @@ namespace VisionPro_Tut
             this.label8.TabIndex = 1;
             this.label8.Text = "Comport";
             // 
-            // tbAreaHighBlob
-            // 
-            this.tbAreaHighBlob.Location = new System.Drawing.Point(180, 98);
-            this.tbAreaHighBlob.Name = "tbAreaHighBlob";
-            this.tbAreaHighBlob.Size = new System.Drawing.Size(97, 23);
-            this.tbAreaHighBlob.TabIndex = 7;
-            // 
-            // tbAreaLowBlob
-            // 
-            this.tbAreaLowBlob.Location = new System.Drawing.Point(180, 65);
-            this.tbAreaLowBlob.Name = "tbAreaLowBlob";
-            this.tbAreaLowBlob.Size = new System.Drawing.Size(97, 23);
-            this.tbAreaLowBlob.TabIndex = 7;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 101);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(150, 17);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Area High Filter Value:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 71);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(146, 17);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Area Low Filter Value:";
-            // 
             // btnSaveParam
             // 
             this.btnSaveParam.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -383,44 +513,6 @@ namespace VisionPro_Tut
             this.btnSaveParam.Text = "Save";
             this.btnSaveParam.UseVisualStyleBackColor = true;
             this.btnSaveParam.Click += new System.EventHandler(this.btn_Click_Event);
-            // 
-            // lb_Toolblock
-            // 
-            this.lb_Toolblock.AutoSize = true;
-            this.lb_Toolblock.Location = new System.Drawing.Point(180, 38);
-            this.lb_Toolblock.Name = "lb_Toolblock";
-            this.lb_Toolblock.Size = new System.Drawing.Size(105, 17);
-            this.lb_Toolblock.TabIndex = 3;
-            this.lb_Toolblock.Text = "Toolblock_path";
-            this.lb_Toolblock.Click += new System.EventHandler(this.label_Click_Event);
-            // 
-            // lb_ImgDatabase
-            // 
-            this.lb_ImgDatabase.AutoSize = true;
-            this.lb_ImgDatabase.Location = new System.Drawing.Point(180, 11);
-            this.lb_ImgDatabase.Name = "lb_ImgDatabase";
-            this.lb_ImgDatabase.Size = new System.Drawing.Size(97, 17);
-            this.lb_ImgDatabase.TabIndex = 2;
-            this.lb_ImgDatabase.Text = "Img_database";
-            this.lb_ImgDatabase.Click += new System.EventHandler(this.label_Click_Event);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 41);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 17);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "ToolBlock";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Image Database";
             // 
             // tabPage_Log
             // 
@@ -470,47 +562,6 @@ namespace VisionPro_Tut
             this.pictureBoxLogo.TabIndex = 4;
             this.pictureBoxLogo.TabStop = false;
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.lb_ImgDatabase);
-            this.panel2.Controls.Add(this.tbAreaHighBlob);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.tbAreaLowBlob);
-            this.panel2.Controls.Add(this.lb_Toolblock);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Location = new System.Drawing.Point(11, 6);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(562, 135);
-            this.panel2.TabIndex = 9;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.cbb_ModeRun);
-            this.panel3.Controls.Add(this.label10);
-            this.panel3.Location = new System.Drawing.Point(579, 89);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(260, 52);
-            this.panel3.TabIndex = 10;
-            // 
-            // cbb_ModeRun
-            // 
-            this.cbb_ModeRun.FormattingEnabled = true;
-            this.cbb_ModeRun.Location = new System.Drawing.Point(114, 14);
-            this.cbb_ModeRun.Name = "cbb_ModeRun";
-            this.cbb_ModeRun.Size = new System.Drawing.Size(121, 24);
-            this.cbb_ModeRun.TabIndex = 4;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(19, 18);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(69, 17);
-            this.label10.TabIndex = 3;
-            this.label10.Text = "ModeRun";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -533,13 +584,15 @@ namespace VisionPro_Tut
             this.tabPage_Auto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cogRecordDisplay1)).EndInit();
             this.tabPage_Setting.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -568,7 +621,7 @@ namespace VisionPro_Tut
         private System.Windows.Forms.Button btnRunContinue;
         private System.Windows.Forms.Button btnRun;
         private Cognex.VisionPro.CogRecordDisplay cogRecordDisplay1;
-        private System.Windows.Forms.Label lb_Toolblock;
+        private System.Windows.Forms.Label lb_Toolblock_Process;
         private System.Windows.Forms.Label lb_ImgDatabase;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
@@ -589,6 +642,10 @@ namespace VisionPro_Tut
         private System.Windows.Forms.ComboBox cbb_ModeRun;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lb_Toolblock_AcqFifo;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.CheckBox cb_UseCamera;
     }
 }
 

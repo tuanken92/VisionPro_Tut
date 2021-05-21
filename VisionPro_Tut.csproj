@@ -44,6 +44,7 @@
     <Reference Include="Cognex.VisionPro.ImageProcessing, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.ImageProcessing.Controls, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.QuickBuild.Controls, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
+    <Reference Include="Cognex.VisionPro.QuickBuild.Core, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.ToolGroup, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.ToolGroup.Controls, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -112,6 +113,7 @@
       <DependentUpon>ToolBlockWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Data\config_param.json" />
+    <None Include="Data\TB_process.vpp" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -17,7 +17,7 @@ namespace VisionPro_Tut
     public partial class MainWindow
     {
         #region CogToolBlock_event
-        private void MToolBlock_Changed(object sender, CogChangedEventArgs e)
+        private void mToolBlockProcess_Changed(object sender, CogChangedEventArgs e)
         {
             // To see what has changed, look at the state flags that are contained in 
             // the CogChangedEventArgs object.  The StateFlags property is a bitfield,
@@ -31,34 +31,34 @@ namespace VisionPro_Tut
             // by bitwise AND'ing StateFlags with SfRunStatus.
 
             // Report error conditions, if any.
-            Console.WriteLine("MToolBlock_Changed");
+            Console.WriteLine("mToolBlockProcess_Changed");
             if ((e.StateFlags & CogBlobTool.SfRunStatus) > 0)
             {
-                if (objectManager.mToolBlock.RunStatus.Result == CogToolResultConstants.Error)
-                    Console.WriteLine(objectManager.mToolBlock.RunStatus.Message);
+                if (objectManager.mToolBlockProcess.RunStatus.Result == CogToolResultConstants.Error)
+                    Console.WriteLine(objectManager.mToolBlockProcess.RunStatus.Message);
             }
         }
 
-        private void MToolBlock_Running(object sender, EventArgs e)
+        private void mToolBlockProcess_Running(object sender, EventArgs e)
         {
             // Get input image.
-            Console.WriteLine("MToolBlock_Running");
+            Console.WriteLine("mToolBlockProcess_Running");
             //if(run_continue)
             //{
             //    objectManager.mIFTool.Run();
-            //    objectManager.mToolBlock.Inputs["Image"].Value = objectManager.mIFTool.OutputImage as CogImage8Grey;
+            //    objectManager.mToolBlockProcess.Inputs["Image"].Value = objectManager.mIFTool.OutputImage as CogImage8Grey;
             //}
         }
 
 
         string Blob_Packet(CogBlobResult blob)
         {
-            return String.Format($"{objectManager.mToolBlock.RunStatus.Result},ID={blob.ID},angle={blob.Angle},x={blob.CenterOfMassX},y={blob.CenterOfMassY}\r\n");
+            return String.Format($"{objectManager.mToolBlockProcess.RunStatus.Result},ID={blob.ID},angle={blob.Angle},x={blob.CenterOfMassX},y={blob.CenterOfMassY}\r\n");
         }
-        private void MToolBlock_Ran(object sender, EventArgs e)
+        private void mToolBlockProcess_Ran(object sender, EventArgs e)
         {
             // This method executes each time the TB runs
-            bool result = (bool)(objectManager.mToolBlock.Outputs["InspectionPassed"].Value);
+            bool result = (bool)(objectManager.mToolBlockProcess.Outputs["InspectionPassed"].Value);
             if (result)
                 objectManager.numPass++;
             else
@@ -67,7 +67,7 @@ namespace VisionPro_Tut
             nPass.Text = objectManager.numPass.ToString();
             nFail.Text = objectManager.numFail.ToString();
 
-            CogBlobTool mBlobTool = objectManager.mToolBlock.Tools["CogBlobTool1"] as CogBlobTool;
+            CogBlobTool mBlobTool = objectManager.mToolBlockProcess.Tools["CogBlobTool1"] as CogBlobTool;
 
             //get result
             var blobResult = mBlobTool.Results;
@@ -86,7 +86,7 @@ namespace VisionPro_Tut
             cogRecordDisplay1.Fit(true);
 
             Display(result);
-            Console.WriteLine("Ran done!, time processing = {0} ms", objectManager.mToolBlock.RunStatus.TotalTime);
+            Console.WriteLine("Ran done!, time processing = {0} ms", objectManager.mToolBlockProcess.RunStatus.TotalTime);
         }
         #endregion
 
@@ -99,7 +99,6 @@ namespace VisionPro_Tut
             switch (curButton.Name)
             {
                 case "btnRun":
-
                     objectManager.RunOnce();
                     break;
                 case "btnRunContinue":
@@ -150,11 +149,28 @@ namespace VisionPro_Tut
             switch (strip_menu.Name)
             {
                 case "loadToolStripMenuItem":
-                    ToolBlockWindow win2 = new ToolBlockWindow(objectManager);
-                    win2.Show();
+                    ToolBlockWindow win2 = new ToolBlockWindow(objectManager, common.file_toolblock_process, Utils.TYPE_OF_TOOLBLOCK.ImageProcess);
+                    if (win2.ShowDialog() == DialogResult.OK)
+                    {
+                        objectManager.mToolBlockProcess = win2.objectManager.mToolBlockProcess;
+                        Console.WriteLine("update done");
+                    }
+                    win2.Dispose();
                     break;
 
                 case "saveToolStripMenuItem":
+                    if(!common.use_camera)
+                    {
+                        System.Windows.Forms.MessageBox.Show("Warning","You not using camera, please recheck!", MessageBoxButtons.OK);
+                        break;
+                    }
+                    ToolBlockWindow win3 = new ToolBlockWindow(objectManager, common.file_toolblock_acq, Utils.TYPE_OF_TOOLBLOCK.AcqFifo);
+                    if (win3.ShowDialog() == DialogResult.OK)
+                    {
+                        objectManager.mToolBlockAcq = win3.objectManager.mToolBlockAcq;
+                        Console.WriteLine("update done");
+                    }
+                    win3.Dispose();
                     break;
 
                 default:
@@ -196,8 +212,30 @@ namespace VisionPro_Tut
                     openFileDialog1.Filter = "vpp files (*.vpp)|*.vpp|All files (*.*)|*.*";
                     if (openFileDialog1.ShowDialog() == DialogResult.OK)
                     {
-                        lb_Toolblock.Text = openFileDialog1.FileName;
-                        common.file_vpp = lb_Toolblock.Text;
+                        lb_Toolblock_Process.Text = openFileDialog1.FileName;
+                        common.file_toolblock_process = lb_Toolblock_Process.Text;
+                    }
+                    break;
+                case "lb_Toolblock_Process":
+                    openFileDialog1.InitialDirectory = Utils.path_load_vpp_file;
+                    openFileDialog1.Title = "Browse Toolblock_ImageProcess Files";
+                    openFileDialog1.DefaultExt = "vpp";
+                    openFileDialog1.Filter = "vpp files (*.vpp)|*.vpp|All files (*.*)|*.*";
+                    if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        lb_Toolblock_Process.Text = openFileDialog1.FileName;
+                        common.file_toolblock_process = lb_Toolblock_Process.Text;
+                    }
+                    break;                
+                case "lb_Toolblock_AcqFifo":
+                    openFileDialog1.InitialDirectory = Utils.path_load_vpp_file;
+                    openFileDialog1.Title = "Browse Toolblock_Acq Files";
+                    openFileDialog1.DefaultExt = "vpp";
+                    openFileDialog1.Filter = "vpp files (*.vpp)|*.vpp|All files (*.*)|*.*";
+                    if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        lb_Toolblock_AcqFifo.Text = openFileDialog1.FileName;
+                        common.file_toolblock_acq = lb_Toolblock_AcqFifo.Text;
                     }
                     break;
                 default:
@@ -209,9 +247,9 @@ namespace VisionPro_Tut
         protected override void Dispose(bool disposing)
         {
             // Disconnect the event handlers before closing the form
-            objectManager.mToolBlock.Ran -= new EventHandler(MToolBlock_Ran);
-            objectManager.mToolBlock.Running -= new EventHandler(MToolBlock_Running);
-            objectManager.mToolBlock.Changed -= new CogChangedEventHandler(MToolBlock_Changed);
+            objectManager.mToolBlockProcess.Ran -= new EventHandler(mToolBlockProcess_Ran);
+            objectManager.mToolBlockProcess.Running -= new EventHandler(mToolBlockProcess_Running);
+            objectManager.mToolBlockProcess.Changed -= new CogChangedEventHandler(mToolBlockProcess_Changed);
 
             if (disposing && (components != null))
             {

@@ -1,4 +1,5 @@
 ﻿using Cognex.VisionPro;
+using Cognex.VisionPro.Exceptions;
 using Cognex.VisionPro.ImageFile;
 using Cognex.VisionPro.ToolBlock;
 using System;
@@ -14,60 +15,68 @@ namespace VisionPro_Tut.Source
     {
         //variable
         public CogImageFileTool mIFTool;
-        public CogAcqFifoTool mAcqTool;
-        public CogToolBlock mToolBlock;
+        public CogToolBlock mToolBlockProcess;
+        public CogToolBlock mToolBlockAcq;
         public ulong numPass;
         public ulong numFail;
-        private bool bUseImageDatabase;
+        private bool bUseCamera;
 
         public ObjectManager()
         {
-            mToolBlock = new CogToolBlock();
+            mToolBlockProcess = new CogToolBlock();
+            mToolBlockAcq = new CogToolBlock();
             mIFTool = new CogImageFileTool();
-            mAcqTool = new CogAcqFifoTool();
             
+
             numPass = 0;
             numFail = 0;
-            bUseImageDatabase = false;
+            bUseCamera = false;
         }
 
-        
+
         public void InitObject(MyDefine Common)
         {
 
             Common.Print_Infor();
             numPass = Common.numOK;
             numFail = Common.numNG;
-            bUseImageDatabase = Common.using_image_database;
+            bUseCamera = Common.use_camera;
 
-            
-            mToolBlock = CogSerializer.LoadObjectFromFile(Common.file_vpp) as CogToolBlock;
-            ToolBlock_PrintInfor();
 
-            
-            mIFTool.Operator.Open(Common.file_image_database, CogImageFileModeConstants.Read);
-            // If no camera is attached, disable the radio button
-            if (mAcqTool.Operator == null)
+            mToolBlockProcess = CogSerializer.LoadObjectFromFile(Common.file_toolblock_process) as CogToolBlock;
+            ToolBlock_PrintInfor(mToolBlockProcess);
+
+            if (bUseCamera)
             {
-                bUseImageDatabase = true;
+                try
+                {
+                    mToolBlockAcq = CogSerializer.LoadObjectFromFile(Common.file_toolblock_acq) as CogToolBlock;
+                    ToolBlock_PrintInfor(mToolBlockAcq);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception {0}", e.ToString());
+                }
             }
             else
             {
-                mAcqTool.Operator.OwnedExposureParams.Exposure = 10;
+                //init mIFTool to get Image from database
+                mIFTool.Operator.Open(Common.file_image_database, CogImageFileModeConstants.Read);
             }
+
         }
 
-        public void ToolBlock_PrintInfor()
+        public void ToolBlock_PrintInfor(CogToolBlock toolblock)
         {
-            int numTools = mToolBlock.Tools.Count;
-            Console.WriteLine("-------------Toolblock begin----------------");
+            int numTools = toolblock.Tools.Count;
+            Console.WriteLine($"-------------Toolblock {toolblock.Name} begin----------------");
             Console.WriteLine("-------------element");
-            for(int i =0; i< numTools; i++)
+            for (int i = 0; i < numTools; i++)
             {
-                Console.WriteLine($"{mToolBlock.Tools[i].Name}");
+                Console.WriteLine($"{toolblock.Tools[i].Name}");
 
                 //cur record
-                Cognex.VisionPro.ICogRecord tmpRecord = mToolBlock.Tools[i].CreateCurrentRecord();
+                Cognex.VisionPro.ICogRecord tmpRecord = toolblock.Tools[i].CreateCurrentRecord();
                 Console.WriteLine($"\ttmpRecord currentRecord = {tmpRecord.Annotation}");
                 for (int j = 0; j < tmpRecord.SubRecords.Count; j++)
                 {
@@ -76,7 +85,7 @@ namespace VisionPro_Tut.Source
 
 
                 //lastest record
-                tmpRecord = mToolBlock.Tools[i].CreateLastRunRecord();
+                tmpRecord = toolblock.Tools[i].CreateLastRunRecord();
                 Console.WriteLine($"\ttmpRecord LastRecord = {tmpRecord.Annotation}");
                 for (int j = 0; j < tmpRecord.SubRecords.Count; j++)
                 {
@@ -85,73 +94,59 @@ namespace VisionPro_Tut.Source
             }
 
             Console.WriteLine("-------------input");
-            int numInputs = mToolBlock.Inputs.Count;
+            int numInputs = toolblock.Inputs.Count;
             for (int i = 0; i < numInputs; i++)
             {
-                Console.WriteLine($"{mToolBlock.Inputs[i].Name}");
+                Console.WriteLine($"{toolblock.Inputs[i].Name}");
             }
 
             Console.WriteLine("-------------output");
-            int numOutputs = mToolBlock.Outputs.Count;
+            int numOutputs = toolblock.Outputs.Count;
             for (int i = 0; i < numOutputs; i++)
             {
-                Console.WriteLine($"{mToolBlock.Outputs[i].Name}");
+                Console.WriteLine($"{toolblock.Outputs[i].Name}");
             }
 
-            Console.WriteLine("-------------Toolblock end----------------");
+            Console.WriteLine($"-------------Toolblock {toolblock.Name} end----------------");
         }
         public void UpdateData(MyDefine Common)
         {
-            mToolBlock = CogSerializer.LoadObjectFromFile(Common.file_vpp) as CogToolBlock;
+            mToolBlockProcess = CogSerializer.LoadObjectFromFile(Common.file_toolblock_process) as CogToolBlock;
             mIFTool.Operator.Open(Common.file_image_database, CogImageFileModeConstants.Read);
         }
-   
+
         public void RunOnce()
         {
             // Get the next image
-            if (bUseImageDatabase)
+            if (!bUseCamera)
             {
                 mIFTool.Run();
-                mToolBlock.Inputs["Image"].Value = mIFTool.OutputImage as CogImage8Grey;
+                mToolBlockProcess.Inputs["Image"].Value = mIFTool.OutputImage as CogImage8Grey;
             }
             else
             {
-                mAcqTool.Run();
-                mToolBlock.Inputs["Image"].Value = mAcqTool.OutputImage as CogImage8Grey;
+                //FIXME: check output image of mToolBockAcq
+                mToolBlockAcq.Run();
+                mToolBlockProcess.Inputs["Image"].Value = mToolBlockAcq.Outputs["Image"];
             }
             // Run the toolblock
-            mToolBlock.Run();
+            mToolBlockProcess.Run();
         }
 
-        public void RunContinue()
-        {
-            // Get the next image
-            if (bUseImageDatabase)
-            {
-                mIFTool.Run();
-                mToolBlock.Inputs["Image"].Value = mIFTool.OutputImage as CogImage8Grey;
-            }
-            else
-            {
-                mAcqTool.Run();
-                mToolBlock.Inputs["Image"].Value = mAcqTool.OutputImage as CogImage8Grey;
-            }
-            // Run the toolblock
-            mToolBlock.Run();
-        }
         public void ReleaseObject()
         {
             if (mIFTool != null)
                 mIFTool.Dispose();
-            if (mAcqTool != null)
-                mAcqTool.Dispose();
-            if (mToolBlock != null)
-                mToolBlock.Dispose();
+            //FIXME: check here
+            if (mToolBlockAcq != null)
+                mToolBlockAcq.Dispose();
+            if (mToolBlockProcess != null)
+                mToolBlockProcess.Dispose();
         }
 
         ~ObjectManager()
         {
-            ReleaseObject();
+            //ReleaseObject();
         }
     }
 }

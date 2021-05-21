@@ -26,11 +26,11 @@ namespace VisionPro_Tut
 
             objectManager = new ObjectManager();
             objectManager.InitObject(common);
-            objectManager.mToolBlock.Changed += MToolBlock_Changed;
-            objectManager.mToolBlock.Running += MToolBlock_Running;
-            objectManager.mToolBlock.Ran += MToolBlock_Ran;
-            objectManager.mToolBlock.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
-            objectManager.mToolBlock.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
+            objectManager.mToolBlockProcess.Changed += mToolBlockProcess_Changed;
+            objectManager.mToolBlockProcess.Running += mToolBlockProcess_Running;
+            objectManager.mToolBlockProcess.Ran += mToolBlockProcess_Ran;
+            objectManager.mToolBlockProcess.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
+            objectManager.mToolBlockProcess.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
 
             bool create_serialport = false;
             serialPort = new MySerialPort(common.serial_port, ref create_serialport);
@@ -120,8 +120,8 @@ namespace VisionPro_Tut
 
         void UpdateToolBlock()
         {
-            objectManager.mToolBlock.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
-            objectManager.mToolBlock.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
+            objectManager.mToolBlockProcess.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
+            objectManager.mToolBlockProcess.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
         }
 
         public void Display(bool result)
