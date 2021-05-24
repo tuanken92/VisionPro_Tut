@@ -73,10 +73,10 @@ namespace VisionPro_Tut
             var blobResult = mBlobTool.Results;
             var all_blob = blobResult.GetBlobs();
             Console.WriteLine($"number blob detected = {all_blob.Count}");
-            for(int i = 0; i < all_blob.Count; i++)
-                serialPort.SendMessage(Blob_Packet(all_blob[i]));
+            /*for(int i = 0; i < all_blob.Count; i++)
+                serialPort.SendMessage(Blob_Packet(all_blob[i]));*/
 
-            var blobRunParam = mBlobTool.RunParams;
+            //var blobRunParam = mBlobTool.RunParams;
 
             //Assign picture to display
             ICogRecord temp = mBlobTool.CreateLastRunRecord();
@@ -148,7 +148,7 @@ namespace VisionPro_Tut
             Console.WriteLine("MenuItem click = {0}", strip_menu.Name);
             switch (strip_menu.Name)
             {
-                case "loadToolStripMenuItem":
+                case "load_ImageProcessItem":
                     ToolBlockWindow win2 = new ToolBlockWindow(objectManager, common.file_toolblock_process, Utils.TYPE_OF_TOOLBLOCK.ImageProcess);
                     if (win2.ShowDialog() == DialogResult.OK)
                     {
@@ -159,7 +159,7 @@ namespace VisionPro_Tut
                     win2.Dispose();
                     break;
 
-                case "saveToolStripMenuItem":
+                case "load_AcqFifoItem":
                     if(!common.use_camera)
                     {
                         System.Windows.Forms.MessageBox.Show("Warning","You not using camera, please recheck!", MessageBoxButtons.OK);

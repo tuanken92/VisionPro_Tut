@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using VisionPro_Tut.Source;
 using static VisionPro_Tut.Source.Utils;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace VisionPro_Tut.Source
 {
@@ -36,6 +38,7 @@ namespace VisionPro_Tut.Source
         public static readonly string file_config = String.Format($"{projectDirectory}\\Data\\config_param.json");
         public static readonly string path_load_img_database = @"C:\Program Files\Cognex\VisionPro\Images";
         public static readonly string path_load_vpp_file = @"C:\Users\Admin\Desktop\Vpp_file";
+        public static readonly string path_save_images = String.Format("{0}\\Images", projectDirectory);
 
         public static readonly List<int> list_baudrate = new List<int>{ 9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000 };
 
@@ -73,6 +76,29 @@ namespace VisionPro_Tut.Source
             BinaryFormatter formatter = new BinaryFormatter();
             
             return formatter.Deserialize(stream);
+        }
+
+        public static bool CreateFolder(string path_folder)
+        {
+            bool result = Directory.Exists(path_folder);
+            if (!result)
+            {
+                Directory.CreateDirectory(path_folder);
+                result = Directory.Exists(path_folder);
+            }
+            return result;
+        }
+        public static string GenerateNameImage()
+        {
+            CreateFolder(path_save_images);
+            return String.Format("{0}\\{1}.jpg", path_save_images, DateTime.Now.ToString("yyyyMMdd_hhmmss"));
+        }
+
+        public static void Save_BitMap(Bitmap bm)
+        {
+            string file_name = GenerateNameImage();
+            bm.Save(file_name, ImageFormat.Jpeg);
+            Console.WriteLine("Saved file {0}", file_name);
         }
 
     }

@@ -44,6 +44,9 @@ namespace VisionPro_Tut.Source
                 try
                 {
                     mToolBlockAcq = CogSerializer.LoadObjectFromFile(Common.file_toolblock_acq) as CogToolBlock;
+                    mToolBlockAcq.Ran += MToolBlockAcq_Ran;
+                    mToolBlockAcq.Changed += MToolBlockAcq_Changed;
+                    mToolBlockAcq.Running += MToolBlockAcq_Running;
                     ToolBlock_PrintInfor(mToolBlockAcq);
                 }
                 catch (Exception e)
@@ -56,6 +59,25 @@ namespace VisionPro_Tut.Source
                 //init mIFTool to get Image from database
                 mIFTool.Operator.Open(Common.file_image_database, CogImageFileModeConstants.Read);
             }
+
+        }
+
+        private void MToolBlockAcq_Running(object sender, EventArgs e)
+        {
+            Console.WriteLine("MToolBlockAcq_Running");
+        }
+
+        private void MToolBlockAcq_Changed(object sender, CogChangedEventArgs e)
+        {
+            Console.WriteLine("MToolBlockAcq_Changed");
+        }
+
+        private void MToolBlockAcq_Ran(object sender, EventArgs e)
+        {
+            Console.WriteLine("MToolBlockAcq_Ran");
+            Console.WriteLine("Test step process when using camera 0 ....");
+            var result = (CogImage8Grey)(mToolBlockAcq.Outputs["Image"].Value);
+            Utils.Save_BitMap(result.ToBitmap());
 
         }
 
@@ -120,7 +142,8 @@ namespace VisionPro_Tut.Source
             {
                 //FIXME: check output image of mToolBockAcq
                 mToolBlockAcq.Run();
-                mToolBlockProcess.Inputs["Image"].Value = mToolBlockAcq.Outputs["Image"];
+                Console.WriteLine("Test step process when using camera 1....");
+                mToolBlockProcess.Inputs["Image"].Value = mToolBlockAcq.Outputs["Image"].Value;
             }
             // Run the toolblock
             mToolBlockProcess.Run();

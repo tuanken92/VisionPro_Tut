@@ -33,8 +33,8 @@ namespace VisionPro_Tut
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolBlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.load_ImageProcessItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.load_AcqFifoItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl_Main = new System.Windows.Forms.TabControl();
             this.tabPage_Auto = new System.Windows.Forms.TabPage();
             this.cogRecordDisplay1 = new Cognex.VisionPro.CogRecordDisplay();
@@ -96,32 +96,32 @@ namespace VisionPro_Tut
             this.toolBlockToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(4, 562);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(78, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(198, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // toolBlockToolStripMenuItem
             // 
             this.toolBlockToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadToolStripMenuItem,
-            this.saveToolStripMenuItem});
+            this.load_ImageProcessItem,
+            this.load_AcqFifoItem});
             this.toolBlockToolStripMenuItem.Name = "toolBlockToolStripMenuItem";
             this.toolBlockToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.toolBlockToolStripMenuItem.Text = "ToolBlock";
             // 
-            // loadToolStripMenuItem
+            // load_ImageProcessItem
             // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.loadToolStripMenuItem.Text = "Load";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            this.load_ImageProcessItem.Name = "load_ImageProcessItem";
+            this.load_ImageProcessItem.Size = new System.Drawing.Size(180, 22);
+            this.load_ImageProcessItem.Text = "Load_ImageProcess";
+            this.load_ImageProcessItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
-            // saveToolStripMenuItem
+            // load_AcqFifoItem
             // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            this.load_AcqFifoItem.Name = "load_AcqFifoItem";
+            this.load_AcqFifoItem.Size = new System.Drawing.Size(180, 22);
+            this.load_AcqFifoItem.Text = "Load_AcqFifo";
+            this.load_AcqFifoItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // tabControl_Main
             // 
@@ -602,8 +602,8 @@ namespace VisionPro_Tut
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolBlockToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem load_ImageProcessItem;
+        private System.Windows.Forms.ToolStripMenuItem load_AcqFifoItem;
         private System.Windows.Forms.TabControl tabControl_Main;
         private System.Windows.Forms.TabPage tabPage_Auto;
         private System.Windows.Forms.TabPage tabPage_Manual;

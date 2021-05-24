@@ -202,5 +202,8 @@
     <Content Include="Pictures\up_pos.png" />
     <Content Include="Pictures\Vietnam.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
