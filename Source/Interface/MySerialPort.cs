@@ -7,23 +7,47 @@ namespace VisionPro_Tut.Source.Interface
 {
     class MySerialPort
     {
-        private string com_name = "";
-        private SerialPort serialPort = null;
-        private StringBuilder dataReceived = null;
-        public List<string> list_comport;
-        public bool is_success = false;
-        public StringBuilder DataReceived
+        //data receive from server
+        private string _data_receive = null;
+        public string data_receive
         {
-            get
-            {
-                return dataReceived;
-            }
+            get => _data_receive;
             set
             {
-                if (dataReceived != value)
-                    dataReceived = value;
+                _data_receive = value;
+                OnNameChanged(value);
             }
         }
+
+
+
+        //event
+        private event EventHandler<ReceivedMessageEventArgs> _ReceiveMessage;
+        public event EventHandler<ReceivedMessageEventArgs> ReceiveMessage
+        {
+            add
+            {
+                _ReceiveMessage += value;
+            }
+            remove
+            {
+                _ReceiveMessage -= value;
+            }
+        }
+
+        void OnNameChanged(string mess)
+        {
+            if (_ReceiveMessage != null)
+            {
+                _ReceiveMessage(this, new ReceivedMessageEventArgs(mess));
+            }
+        }
+
+        private string com_name = "";
+        private SerialPort serialPort = null;
+        public List<string> list_comport;
+        public bool is_success = false;
+       
 
 
         public MySerialPort(SerialPortParam param)
@@ -109,11 +133,8 @@ namespace VisionPro_Tut.Source.Interface
         }
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            string data_com = this.serialPort.ReadExisting();
-            if (data_com != null)
-                this.DataReceived = new StringBuilder(data_com);
-
-            Console.WriteLine($"Data {com_name} received: {data_com}");
+            this.data_receive = this.serialPort.ReadExisting();
+            Console.WriteLine($"Data {com_name} received: {data_receive}");
         }
     }
 }

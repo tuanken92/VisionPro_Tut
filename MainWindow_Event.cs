@@ -43,11 +43,6 @@ namespace VisionPro_Tut
         {
             // Get input image.
             Console.WriteLine("mToolBlockProcess_Running");
-            //if(run_continue)
-            //{
-            //    objectManager.mIFTool.Run();
-            //    objectManager.mToolBlockProcess.Inputs["Image"].Value = objectManager.mIFTool.OutputImage as CogImage8Grey;
-            //}
         }
 
 
@@ -73,8 +68,8 @@ namespace VisionPro_Tut
             var blobResult = mBlobTool.Results;
             var all_blob = blobResult.GetBlobs();
             Console.WriteLine($"number blob detected = {all_blob.Count}");
-            /*for(int i = 0; i < all_blob.Count; i++)
-                serialPort.SendMessage(Blob_Packet(all_blob[i]));*/
+            for (int i = 0; i < all_blob.Count; i++)
+                interfaceManager.SendMessage(Blob_Packet(all_blob[i]));
 
             //var blobRunParam = mBlobTool.RunParams;
 
@@ -92,6 +87,10 @@ namespace VisionPro_Tut
 
         #region GUI_event
         static bool isPressRunContinue = false;
+        static bool isPressClientConnect = false;
+        static bool isPressServerListen = false;
+        static bool isRunContinue = false;
+        Thread thread_run_continue = null;
         private void btn_Click_Event(object sender, EventArgs e)
         {
             var curButton = sender as Button;
@@ -104,31 +103,27 @@ namespace VisionPro_Tut
                 case "btnRunContinue":
                     if(!isPressRunContinue)
                     {
-                        run_thread = true;
+                        
                         try
                         {
-                            myThread.Start();
+                            isRunContinue = true;
+                            thread_run_continue = new Thread(new ThreadStart(Thread_Run_Continuously));
+                            thread_run_continue.Name = "thread run continue";
+                            thread_run_continue.IsBackground = true;
+                            thread_run_continue.Start();
+
                         }
                         catch (ThreadStateException ee)
                         {
                             Console.WriteLine("Caught: {0}", ee.Message);
                         }
 
-                        /*if (!myThread.IsAlive)
-                        {
-                            myThread.Start();
-                            Console.WriteLine("Run thread.....................");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"{myThread.Name} - IsAlive = {myThread.IsAlive}.....................");
-
-                        }*/
                     }
                     else
                     {
-                        run_thread = false;
-                        myThread.Abort();
+                        isRunContinue = false;
+                        //thread_run_continue.Abort();
+                        
                     }
                     isPressRunContinue = !isPressRunContinue;
                     break;
@@ -136,8 +131,58 @@ namespace VisionPro_Tut
                     UpdateParam();
                     settingParam.Save_Parameter(common);
                     break;
-                case "btnResetJob":
+                case "btnInitial":
                     UpdateToolBlock();
+                    break;
+
+                case "btn_ClientConnect":
+                    {
+                        
+                        if (!isPressClientConnect)
+                        {
+                            if(chatClient.Connect())
+                            {
+                                isPressClientConnect = true;
+                                btn_ClientConnect.Text = "Disconnect";
+                            }
+                        }
+                        else
+                        {
+                            if(chatClient.DisConnect())
+                            {
+                                isPressClientConnect = false;
+                                btn_ClientConnect.Text = "Connect";
+                            }
+                        }
+                    }
+                    
+                    break;
+                case "btn_ClientSend":
+                    chatClient.SendMessage(tx_ClientData2Send.Text);
+                    break;
+                case "btn_ServerListen":
+                    {
+
+                        if (!isPressServerListen)
+                        {
+                            if (chatServer.Listen())
+                            {
+                                isPressServerListen = true;
+                                btn_ServerListen.Text = "Stop";
+                            }
+                        }
+                        else
+                        {
+                            if (chatServer.Stop())
+                            {
+                                isPressServerListen = false;
+                                btn_ServerListen.Text = "Listen";
+                            }
+                        }
+                    }
+                    break;
+                case "btn_ServerSend":
+                    chatServer.SendMessage(tb_ServerData2Send.Text);
                     break;
             }
         }

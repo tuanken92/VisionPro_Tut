@@ -84,6 +84,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Interface\Buffer.cs" />
+    <Compile Include="Source\Interface\InterfaceManager.cs" />
     <Compile Include="Source\Interface\MySerialPort.cs" />
     <Compile Include="Source\Interface\TcpChatClient.cs" />
     <Compile Include="Source\Interface\TcpChatServer.cs" />

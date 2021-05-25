@@ -13,6 +13,14 @@ using System.Drawing.Imaging;
 
 namespace VisionPro_Tut.Source
 {
+    public class ReceivedMessageEventArgs : EventArgs
+    {
+        public string Message { get; set; }
+        public ReceivedMessageEventArgs(string name)
+        {
+            Message = name;
+        }
+    }
 
     public class Utils
     {
@@ -26,8 +34,11 @@ namespace VisionPro_Tut.Source
         {
             Manual = 0,
             SerialPort,
-            TCP
+            TCP_Client,
+            TCP_Server
         }
+
+
         public const string TRIGGER = "TRIGGER";
         public const string RUNLOOP = "LOOP";
 
@@ -139,6 +150,34 @@ namespace VisionPro_Tut.Source
 
     }
 
+    public class TCPParam
+    {
+        public string name;
+        public string ip;
+        public int port;
+
+        public TCPParam()
+        {
+            ip = "127.0.0.1";
+            port = 8686;
+            name = null;
+        }
+
+        public TCPParam(string name, string ip, int port)
+        {
+            this.name = name;
+            this.ip = ip;
+            this.port = port;
+        }
+
+        public void Print_Infor()
+        {
+            Console.WriteLine($"\tTcp name = {name}");
+            Console.WriteLine($"\tTcp address = {ip}:{port}");
+        }
+
+    }
+
     public class MyDefine
     {
 
@@ -152,6 +191,8 @@ namespace VisionPro_Tut.Source
         public MODE_RUN mode_run = MODE_RUN.Manual;
         public BlobFilter blob_filter = new BlobFilter();
         public SerialPortParam serial_port = new SerialPortParam();
+        public TCPParam tcp_client = new TCPParam("Client", "127.0.0.1", 5001);
+        public TCPParam tcp_server = new TCPParam("Server", "127.0.0.1", 5002);
 
         public void Print_Infor()
         {
@@ -165,6 +206,8 @@ namespace VisionPro_Tut.Source
             Console.WriteLine($"\tnumber NG = {numNG}");
             blob_filter.Print_Infor();
             serial_port.Print_Infor();
+            tcp_client.Print_Infor();
+            tcp_server.Print_Infor();
             Console.WriteLine("----MyDefine end---");
         }
     }

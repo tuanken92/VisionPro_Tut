@@ -10,55 +10,13 @@ namespace VisionPro_Tut
     public partial class MainWindow
     {
         #region funtion process
-        void Initial()
-        {
-            common = new MyDefine();
-            settingParam = new SaveLoadParameter();
-            bool isLoadSuccess = settingParam.Load_Parameter(ref common);
-
-            objectManager = new ObjectManager();
-            objectManager.InitObject(common);
-            objectManager.mToolBlockProcess.Changed += mToolBlockProcess_Changed;
-            objectManager.mToolBlockProcess.Running += mToolBlockProcess_Running;
-            objectManager.mToolBlockProcess.Ran += mToolBlockProcess_Ran;
-            objectManager.mToolBlockProcess.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
-            objectManager.mToolBlockProcess.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
-
-            serialPort = new MySerialPort(common.serial_port);
-            Console.WriteLine($"create_serialport = {serialPort.is_success}");
-
-            //mode run
-            switch (common.mode_run)
-            {
-                case Utils.MODE_RUN.Manual:
-                    myThread = new Thread(new ThreadStart(Thread_Run_Continuously));
-                    myThread.Name = "Thread Control by Manual";
-                    myThread.IsBackground = true;
-                    run_thread = false;
-                    break;
-                case Utils.MODE_RUN.SerialPort:
-
-                    if (serialPort.is_success)
-                        serialPort.Connect();
-                    myThread = new Thread(new ThreadStart(Thread_Control_By_Serial_Port));
-                    myThread.Name = "Thread Control by SeriablPort";
-                    myThread.IsBackground = true;
-                    run_thread = true;
-                    myThread.Start();
-                    break;
-                case Utils.MODE_RUN.TCP:
-                    break;
-            }
-
-            //care thread ui + thread process
-            CheckForIllegalCrossThreadCalls = false;
-        }
+        
 
         void Thread_Run_Continuously()
         {
             try
             {
-                while (run_thread)
+                while (isRunContinue)
                 {
                     Thread.Sleep(1000);
 
@@ -74,16 +32,17 @@ namespace VisionPro_Tut
             }
 
         }
-        void Thread_Control_By_Serial_Port()
+        void Thread_Control_By_Interface()
         {
             try
             {
                 while (run_thread)
                 {
                     Thread.Sleep(100);
-                    if (serialPort.DataReceived != null)
+                    if (interfaceManager.data_receive != null)
                     {
-                        switch (serialPort.DataReceived.ToString())
+                        Console.WriteLine(interfaceManager.data_receive);
+                        switch (interfaceManager.data_receive)
                         {
                             case Utils.TRIGGER:
                                 run_continue = false;
@@ -96,8 +55,7 @@ namespace VisionPro_Tut
                             default:
                                 break;
                         }
-                        serialPort.DataReceived.Clear();
-                        serialPort.DataReceived = null;
+                        interfaceManager.data_receive = null;
                     }
                 }
             }
@@ -113,6 +71,8 @@ namespace VisionPro_Tut
         {
             objectManager.mToolBlockProcess.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
             objectManager.mToolBlockProcess.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
+
+
         }
 
         public void Display(bool result)
