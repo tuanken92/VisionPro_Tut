@@ -136,7 +136,8 @@ namespace VisionPro_Tut.Source
             if (!bUseCamera)
             {
                 mIFTool.Run();
-                mToolBlockProcess.Inputs["Image"].Value = mIFTool.OutputImage as CogImage8Grey;
+                //mToolBlockProcess.Inputs["Image"].Value = mIFTool.OutputImage as CogImage8Grey;
+                mToolBlockProcess.Inputs["Input"].Value = mIFTool.OutputImage as CogImage8Grey;
             }
             else
             {

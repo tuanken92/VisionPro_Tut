@@ -43,8 +43,16 @@ namespace VisionPro_Tut
             objectManager.mToolBlockProcess.Changed += mToolBlockProcess_Changed;
             objectManager.mToolBlockProcess.Running += mToolBlockProcess_Running;
             objectManager.mToolBlockProcess.Ran += mToolBlockProcess_Ran;
-            objectManager.mToolBlockProcess.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
-            objectManager.mToolBlockProcess.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
+            //try
+            //{
+            //    objectManager.mToolBlockProcess.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
+            //    objectManager.mToolBlockProcess.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
+            //}
+            //catch(Exception e)
+            //{
+            //    MessageBox.Show(e.Message);
+            //}
+            
 
 
             interfaceManager = new InterfaceManager(common);

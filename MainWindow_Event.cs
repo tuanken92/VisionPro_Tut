@@ -1,5 +1,7 @@
 ﻿using Cognex.VisionPro;
 using Cognex.VisionPro.Blob;
+using Cognex.VisionPro.CalibFix;
+using Cognex.VisionPro.PMAlign;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +52,7 @@ namespace VisionPro_Tut
         {
             return String.Format($"{objectManager.mToolBlockProcess.RunStatus.Result},ID={blob.ID},angle={blob.Angle},x={blob.CenterOfMassX},y={blob.CenterOfMassY}\r\n");
         }
-        private void mToolBlockProcess_Ran(object sender, EventArgs e)
+        private void mToolBlockProcess_Ran_Old(object sender, EventArgs e)
         {
             // This method executes each time the TB runs
             bool result = (bool)(objectManager.mToolBlockProcess.Outputs["InspectionPassed"].Value);
@@ -81,6 +83,57 @@ namespace VisionPro_Tut
             cogRecordDisplay1.Fit(true);
 
             Display(result);
+            Console.WriteLine("Ran done!, time processing = {0} ms", objectManager.mToolBlockProcess.RunStatus.TotalTime);
+        }
+
+        private void mToolBlockProcess_Ran(object sender, EventArgs e)
+        {
+            // This method executes each time the TB runs
+            var output_img = (objectManager.mToolBlockProcess.Outputs["Output"]);
+            //if (result)
+            //    objectManager.numPass++;
+            //else
+            //    objectManager.numFail++;
+            //// Update the label with pass and fail
+            //nPass.Text = objectManager.numPass.ToString();
+            //nFail.Text = objectManager.numFail.ToString();
+
+            CogPMAlignTool cogPMAlignTool = objectManager.mToolBlockProcess.Tools["CogPMAlignTool1"] as CogPMAlignTool;
+            CogFixtureTool mCogFixtureTool= objectManager.mToolBlockProcess.Tools["CogFixtureTool1"] as CogFixtureTool;
+
+            var input_img = cogPMAlignTool.InputImage;
+            CogTransform2DLinear pose = cogPMAlignTool.Results[0].GetPose();
+            Console.WriteLine("pose = " + pose.ToString());
+            var out_img = mCogFixtureTool.OutputImage;
+
+
+            ICogTransform2D fromSelectedToPixelTransform = cogPMAlignTool.InputImage.GetTransform("#", ".");
+            CogTransform2DLinear fromPatternToPixelLinearTransform = fromSelectedToPixelTransform.ComposeBase(pose).LinearTransform(0, 0);
+
+            ////get result
+            //var blobResult = mBlobTool.Results;
+            //var all_blob = blobResult.GetBlobs();
+            //Console.WriteLine($"number blob detected = {all_blob.Count}");
+            //for (int i = 0; i < all_blob.Count; i++)
+            //    interfaceManager.SendMessage(Blob_Packet(all_blob[i]));
+
+            ////var blobRunParam = mBlobTool.RunParams;
+
+            ////Assign picture to display
+            //ICogRecord temp = mBlobTool.CreateLastRunRecord();
+            ////temp = temp.SubRecords["BlobImage"];
+            //temp = temp.SubRecords["InputImage"];
+            //cogRecordDisplay1.Record = temp;
+            //cogRecordDisplay1.Fit(true);
+
+
+            ICogRecord temp = mCogFixtureTool.CreateLastRunRecord();
+            //temp = temp.SubRecords["BlobImage"];
+            temp = temp.SubRecords["OutputImage"];
+            cogRecordDisplay1.Record = temp;
+            cogRecordDisplay1.Fit(true);
+
+            //Display(result);
             Console.WriteLine("Ran done!, time processing = {0} ms", objectManager.mToolBlockProcess.RunStatus.TotalTime);
         }
         #endregion
