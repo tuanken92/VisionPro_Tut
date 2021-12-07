@@ -10,6 +10,7 @@ using static VisionPro_Tut.Source.Utils;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing;
 using System.Drawing.Imaging;
+using OpenCvSharp;
 
 namespace VisionPro_Tut.Source
 {
@@ -212,5 +213,11 @@ namespace VisionPro_Tut.Source
         }
     }
 
+
+    public class MyParam
+    {
+        public static String path_img = @"C:\Users\Admin\Desktop\tuan_vision_pro\img_test\1.bmp";
+        public static Mat source_img = null;
+    }
     
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using System;
 using System.Threading;
 using System.Windows.Forms;
 using VisionPro_Tut.Source;
@@ -38,21 +40,25 @@ namespace VisionPro_Tut
             settingParam = new SaveLoadParameter();
             bool isLoadSuccess = settingParam.Load_Parameter(ref common);
 
-            objectManager = new ObjectManager();
-            objectManager.InitObject(common);
-            objectManager.mToolBlockProcess.Changed += mToolBlockProcess_Changed;
-            objectManager.mToolBlockProcess.Running += mToolBlockProcess_Running;
-            objectManager.mToolBlockProcess.Ran += mToolBlockProcess_Ran;
-            //try
-            //{
-            //    objectManager.mToolBlockProcess.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
-            //    objectManager.mToolBlockProcess.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
-            //}
-            //catch(Exception e)
-            //{
-            //    MessageBox.Show(e.Message);
-            //}
-            
+            if(false)
+            {
+                objectManager = new ObjectManager();
+                objectManager.InitObject(common);
+                objectManager.mToolBlockProcess.Changed += mToolBlockProcess_Changed;
+                objectManager.mToolBlockProcess.Running += mToolBlockProcess_Running;
+                objectManager.mToolBlockProcess.Ran += mToolBlockProcess_Ran;
+                //try
+                //{
+                //    objectManager.mToolBlockProcess.Inputs["FilterLowValue"].Value = common.blob_filter.area_low;
+                //    objectManager.mToolBlockProcess.Inputs["FilterHighValue"].Value = common.blob_filter.area_high;
+                //}
+                //catch(Exception e)
+                //{
+                //    MessageBox.Show(e.Message);
+                //}
+            }
+
+
 
 
             interfaceManager = new InterfaceManager(common);
@@ -116,7 +122,8 @@ namespace VisionPro_Tut
             cbb_ModeRun.DataSource = bindingModeRun.DataSource;
             cbb_ModeRun.Text = common.mode_run.ToString();
 
-            
+
+            tabControl_Main.SelectTab(tabPage_Manual);
 
         }
 
@@ -146,8 +153,11 @@ namespace VisionPro_Tut
             Enum.TryParse<Utils.MODE_RUN>(cbb_ModeRun.SelectedValue.ToString(), out common.mode_run);
 
             //result
-            common.numOK = objectManager.numPass;
-            common.numNG = objectManager.numFail;
+            if(false)
+            {
+                common.numOK = objectManager.numPass;
+                common.numNG = objectManager.numFail;
+            }
 
             common.Print_Infor();
         }
@@ -167,7 +177,8 @@ namespace VisionPro_Tut
             //save param before close form
             UpdateParam();
             settingParam.Save_Parameter(common);
-            objectManager.ReleaseObject();
+            if(false)
+                objectManager.ReleaseObject();
         }
 
 
@@ -179,8 +190,95 @@ namespace VisionPro_Tut
 
 
 
+
         #endregion
 
-        
+        private void btnLoadImg_Click(object sender, EventArgs e)
+        {
+
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.CheckFileExists = true;
+            openFileDialog1.CheckPathExists = true;
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.RestoreDirectory = true;
+            //openFileDialog1.ReadOnlyChecked = true,
+            openFileDialog1.ShowReadOnly = true;
+
+            
+            openFileDialog1.InitialDirectory = Utils.path_load_img_database;
+            openFileDialog1.Title = "Browse Image Files";
+            openFileDialog1.DefaultExt = "bmp";
+            openFileDialog1.Filter = "bitmap files (*.bmp)|*.bmp|All files (*.*)|*.*";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                path_img.Text = openFileDialog1.FileName;
+                
+                try
+                {
+                    MyParam.source_img = Cv2.ImRead(openFileDialog1.FileName);
+                    if(!MyParam.source_img.Empty())
+                    {
+                        Display_img(MyParam.source_img);
+                    }
+                }
+                catch(Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                }
+                
+            }
+
+            
+        }
+
+        void Display_img(Mat frameMat)
+        {
+            var frameBitmap = BitmapConverter.ToBitmap(frameMat);
+            display_img.Image?.Dispose();
+            display_img.Image = frameBitmap;
+        }
+
+        private void btnProcess_Click(object sender, EventArgs e)
+        {
+            if (MyParam.source_img.Empty())
+                return;
+
+            var grid = (int)(grid_cell.Value);
+
+            int width = MyParam.source_img.Width;
+            int height = MyParam.source_img.Height;
+
+            int number_rows = (int)(height / grid);
+            int number_cols = (int)(width / grid);
+
+            Mat draw_img = MyParam.source_img.Clone();
+            //draw cols
+            int number_cols_test = 0;
+            for (int i = 0; i < width; i+=grid)
+            {
+                
+                Cv2.Line(draw_img, new Point(i, 0), new Point(i, height), new Scalar(255, 0, 0));
+                number_cols_test++;
+            }
+
+            //draw rows
+            int number_rows_test = 0;
+            for (int j = 0; j < height; j += grid)
+            {
+                Cv2.Line(draw_img, new Point(0, j), new Point(width, j), new Scalar(0, 255, 255));
+                number_rows_test++;
+            }
+
+            Display_img(draw_img);
+            draw_img.Release();
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            if (!MyParam.source_img.Empty())
+            {
+                Display_img(MyParam.source_img);
+            }
+        }
     }
 }

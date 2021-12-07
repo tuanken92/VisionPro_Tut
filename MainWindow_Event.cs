@@ -347,9 +347,13 @@ namespace VisionPro_Tut
         protected override void Dispose(bool disposing)
         {
             // Disconnect the event handlers before closing the form
-            objectManager.mToolBlockProcess.Ran -= new EventHandler(mToolBlockProcess_Ran);
-            objectManager.mToolBlockProcess.Running -= new EventHandler(mToolBlockProcess_Running);
-            objectManager.mToolBlockProcess.Changed -= new CogChangedEventHandler(mToolBlockProcess_Changed);
+            if(false)
+            {
+                objectManager.mToolBlockProcess.Ran -= new EventHandler(mToolBlockProcess_Ran);
+                objectManager.mToolBlockProcess.Running -= new EventHandler(mToolBlockProcess_Running);
+                objectManager.mToolBlockProcess.Changed -= new CogChangedEventHandler(mToolBlockProcess_Changed);
+            }
+            
 
             if (disposing && (components != null))
             {
