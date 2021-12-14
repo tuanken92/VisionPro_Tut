@@ -136,6 +136,7 @@
     <Compile Include="Source\Interface\TcpServer.cs" />
     <Compile Include="Source\Interface\TcpSession.cs" />
     <Compile Include="Source\MyDefine.cs" />
+    <Compile Include="Source\MyLib.cs" />
     <Compile Include="Source\ObjectManager.cs" />
     <Compile Include="Source\SaveLoadParameter.cs" />
     <Compile Include="Views\ToolBlockWindow.cs">

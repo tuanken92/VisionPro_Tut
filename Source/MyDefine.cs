@@ -218,6 +218,23 @@ namespace VisionPro_Tut.Source
     {
         public static String path_img = @"C:\Users\Admin\Desktop\tuan_vision_pro\img_test\1.bmp";
         public static Mat source_img = null;
+        public static Mat draw_img = null;
+        public static Mat blur_img = null;
+        public static Mat bin_img = null;
+        public static Mat gray_img = null;
+        public static Mat contour_img = null;
+    }
+
+
+    public class PackageResult
+    {
+        int number_pixel_black = 0;
+        int number_pixcel_white = 0;
     }
     
+    public class VisionParam
+    {
+        public static int size_blur = 3;
+        public static int thresh_binary = 120;
+    }
 }

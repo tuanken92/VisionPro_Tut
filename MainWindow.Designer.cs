@@ -49,9 +49,19 @@ namespace VisionPro_Tut
             this.tabPage_Manual = new System.Windows.Forms.TabPage();
             this.display_img = new System.Windows.Forms.PictureBox();
             this.path_img = new System.Windows.Forms.Label();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnBlob = new System.Windows.Forms.Button();
+            this.btnHistogram = new System.Windows.Forms.Button();
+            this.btnBinary = new System.Windows.Forms.Button();
+            this.btnGray = new System.Windows.Forms.Button();
+            this.btnBlur = new System.Windows.Forms.Button();
             this.btnProcess = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
             this.btnLoadImg = new System.Windows.Forms.Button();
-            this.grid_cell = new System.Windows.Forms.NumericUpDown();
+            this.grid_cell_y = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.grid_cell_x = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.tabPage_Interface = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -107,14 +117,16 @@ namespace VisionPro_Tut
             this.lbDateTime = new System.Windows.Forms.Label();
             this.timer_DateTime = new System.Windows.Forms.Timer(this.components);
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.btnReset = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtThreshBinary = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl_Main.SuspendLayout();
             this.tabPage_Auto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cogRecordDisplay1)).BeginInit();
             this.tabPage_Manual.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.display_img)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grid_cell)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_cell_y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_cell_x)).BeginInit();
             this.tabPage_Interface.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -295,12 +307,23 @@ namespace VisionPro_Tut
             // tabPage_Manual
             // 
             this.tabPage_Manual.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_Manual.Controls.Add(this.txtThreshBinary);
+            this.tabPage_Manual.Controls.Add(this.label16);
             this.tabPage_Manual.Controls.Add(this.display_img);
             this.tabPage_Manual.Controls.Add(this.path_img);
+            this.tabPage_Manual.Controls.Add(this.btnSave);
+            this.tabPage_Manual.Controls.Add(this.button1);
+            this.tabPage_Manual.Controls.Add(this.btnBlob);
+            this.tabPage_Manual.Controls.Add(this.btnHistogram);
+            this.tabPage_Manual.Controls.Add(this.btnBinary);
+            this.tabPage_Manual.Controls.Add(this.btnGray);
+            this.tabPage_Manual.Controls.Add(this.btnBlur);
             this.tabPage_Manual.Controls.Add(this.btnProcess);
             this.tabPage_Manual.Controls.Add(this.btnReset);
             this.tabPage_Manual.Controls.Add(this.btnLoadImg);
-            this.tabPage_Manual.Controls.Add(this.grid_cell);
+            this.tabPage_Manual.Controls.Add(this.grid_cell_y);
+            this.tabPage_Manual.Controls.Add(this.label15);
+            this.tabPage_Manual.Controls.Add(this.grid_cell_x);
             this.tabPage_Manual.Controls.Add(this.label14);
             this.tabPage_Manual.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Manual.Name = "tabPage_Manual";
@@ -322,20 +345,100 @@ namespace VisionPro_Tut
             // 
             this.path_img.Location = new System.Drawing.Point(96, 11);
             this.path_img.Name = "path_img";
-            this.path_img.Size = new System.Drawing.Size(603, 25);
+            this.path_img.Size = new System.Drawing.Size(521, 25);
             this.path_img.TabIndex = 4;
             this.path_img.Text = "Path of file";
             this.path_img.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(623, 411);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(217, 30);
+            this.btnSave.TabIndex = 2;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(624, 374);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 30);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Analysis";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnBlob
+            // 
+            this.btnBlob.Location = new System.Drawing.Point(624, 338);
+            this.btnBlob.Name = "btnBlob";
+            this.btnBlob.Size = new System.Drawing.Size(101, 30);
+            this.btnBlob.TabIndex = 2;
+            this.btnBlob.Text = "Blob";
+            this.btnBlob.UseVisualStyleBackColor = true;
+            this.btnBlob.Click += new System.EventHandler(this.btnBlob_Click);
+            // 
+            // btnHistogram
+            // 
+            this.btnHistogram.Location = new System.Drawing.Point(624, 302);
+            this.btnHistogram.Name = "btnHistogram";
+            this.btnHistogram.Size = new System.Drawing.Size(101, 30);
+            this.btnHistogram.TabIndex = 2;
+            this.btnHistogram.Text = "Histogram";
+            this.btnHistogram.UseVisualStyleBackColor = true;
+            this.btnHistogram.Click += new System.EventHandler(this.btnHistogram_Click);
+            // 
+            // btnBinary
+            // 
+            this.btnBinary.Location = new System.Drawing.Point(623, 266);
+            this.btnBinary.Name = "btnBinary";
+            this.btnBinary.Size = new System.Drawing.Size(101, 30);
+            this.btnBinary.TabIndex = 2;
+            this.btnBinary.Text = "Binary";
+            this.btnBinary.UseVisualStyleBackColor = true;
+            this.btnBinary.Click += new System.EventHandler(this.btnBinary_Click);
+            // 
+            // btnGray
+            // 
+            this.btnGray.Location = new System.Drawing.Point(623, 194);
+            this.btnGray.Name = "btnGray";
+            this.btnGray.Size = new System.Drawing.Size(101, 30);
+            this.btnGray.TabIndex = 2;
+            this.btnGray.Text = "Gray";
+            this.btnGray.UseVisualStyleBackColor = true;
+            this.btnGray.Click += new System.EventHandler(this.btnGray_Click);
+            // 
+            // btnBlur
+            // 
+            this.btnBlur.Location = new System.Drawing.Point(623, 230);
+            this.btnBlur.Name = "btnBlur";
+            this.btnBlur.Size = new System.Drawing.Size(101, 30);
+            this.btnBlur.TabIndex = 2;
+            this.btnBlur.Text = "Blur";
+            this.btnBlur.UseVisualStyleBackColor = true;
+            this.btnBlur.Click += new System.EventHandler(this.btnBlur_Click);
+            // 
             // btnProcess
             // 
-            this.btnProcess.Location = new System.Drawing.Point(624, 94);
+            this.btnProcess.Location = new System.Drawing.Point(624, 156);
             this.btnProcess.Name = "btnProcess";
-            this.btnProcess.Size = new System.Drawing.Size(217, 30);
+            this.btnProcess.Size = new System.Drawing.Size(101, 30);
             this.btnProcess.TabIndex = 2;
             this.btnProcess.Text = "Process";
             this.btnProcess.UseVisualStyleBackColor = true;
             this.btnProcess.Click += new System.EventHandler(this.btnProcess_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(623, 8);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(80, 30);
+            this.btnReset.TabIndex = 2;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnLoadImg
             // 
@@ -347,14 +450,36 @@ namespace VisionPro_Tut
             this.btnLoadImg.UseVisualStyleBackColor = true;
             this.btnLoadImg.Click += new System.EventHandler(this.btnLoadImg_Click);
             // 
-            // grid_cell
+            // grid_cell_y
             // 
-            this.grid_cell.Location = new System.Drawing.Point(759, 19);
-            this.grid_cell.Name = "grid_cell";
-            this.grid_cell.Size = new System.Drawing.Size(51, 23);
-            this.grid_cell.TabIndex = 1;
-            this.grid_cell.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.grid_cell.Value = new decimal(new int[] {
+            this.grid_cell_y.Location = new System.Drawing.Point(789, 32);
+            this.grid_cell_y.Name = "grid_cell_y";
+            this.grid_cell_y.Size = new System.Drawing.Size(51, 23);
+            this.grid_cell_y.TabIndex = 1;
+            this.grid_cell_y.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.grid_cell_y.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(735, 34);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(48, 17);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Grid Y";
+            // 
+            // grid_cell_x
+            // 
+            this.grid_cell_x.Location = new System.Drawing.Point(789, 3);
+            this.grid_cell_x.Name = "grid_cell_x";
+            this.grid_cell_x.Size = new System.Drawing.Size(51, 23);
+            this.grid_cell_x.TabIndex = 1;
+            this.grid_cell_x.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.grid_cell_x.Value = new decimal(new int[] {
             4,
             0,
             0,
@@ -363,11 +488,11 @@ namespace VisionPro_Tut
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(705, 21);
+            this.label14.Location = new System.Drawing.Point(735, 5);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(35, 17);
+            this.label14.Size = new System.Drawing.Size(48, 17);
             this.label14.TabIndex = 0;
-            this.label14.Text = "Grid";
+            this.label14.Text = "Grid X";
             // 
             // tabPage_Interface
             // 
@@ -896,15 +1021,23 @@ namespace VisionPro_Tut
             this.pictureBoxLogo.TabIndex = 4;
             this.pictureBoxLogo.TabStop = false;
             // 
-            // btnReset
+            // label16
             // 
-            this.btnReset.Location = new System.Drawing.Point(623, 45);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(80, 30);
-            this.btnReset.TabIndex = 2;
-            this.btnReset.Text = "Reset";
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(623, 70);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(53, 17);
+            this.label16.TabIndex = 6;
+            this.label16.Text = "Thresh";
+            // 
+            // txtThreshBinary
+            // 
+            this.txtThreshBinary.Location = new System.Drawing.Point(738, 64);
+            this.txtThreshBinary.Name = "txtThreshBinary";
+            this.txtThreshBinary.Size = new System.Drawing.Size(102, 23);
+            this.txtThreshBinary.TabIndex = 7;
+            this.txtThreshBinary.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtThreshBinary.TextChanged += new System.EventHandler(this.txtThreshBinary_TextChanged);
             // 
             // MainWindow
             // 
@@ -930,7 +1063,8 @@ namespace VisionPro_Tut
             this.tabPage_Manual.ResumeLayout(false);
             this.tabPage_Manual.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.display_img)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grid_cell)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_cell_y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_cell_x)).EndInit();
             this.tabPage_Interface.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -1029,9 +1163,20 @@ namespace VisionPro_Tut
         private System.Windows.Forms.Label path_img;
         private System.Windows.Forms.Button btnProcess;
         private System.Windows.Forms.Button btnLoadImg;
-        private System.Windows.Forms.NumericUpDown grid_cell;
+        private System.Windows.Forms.NumericUpDown grid_cell_x;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.NumericUpDown grid_cell_y;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnBlob;
+        private System.Windows.Forms.Button btnHistogram;
+        private System.Windows.Forms.Button btnBinary;
+        private System.Windows.Forms.Button btnBlur;
+        private System.Windows.Forms.Button btnGray;
+        private System.Windows.Forms.TextBox txtThreshBinary;
+        private System.Windows.Forms.Label label16;
     }
 }
 

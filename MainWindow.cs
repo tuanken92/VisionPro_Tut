@@ -243,34 +243,35 @@ namespace VisionPro_Tut
             if (MyParam.source_img.Empty())
                 return;
 
-            var grid = (int)(grid_cell.Value);
+            var grid_x = (int)(grid_cell_x.Value);
+            var grid_y = (int)(grid_cell_y.Value);
 
             int width = MyParam.source_img.Width;
             int height = MyParam.source_img.Height;
 
-            int number_rows = (int)(height / grid);
-            int number_cols = (int)(width / grid);
+            int number_rows = (int)(height / grid_x);
+            int number_cols = (int)(width / grid_y);
 
-            Mat draw_img = MyParam.source_img.Clone();
+            MyParam.draw_img = MyParam.source_img.Clone();
             //draw cols
             int number_cols_test = 0;
-            for (int i = 0; i < width; i+=grid)
+            for (int i = 0; i < width; i+=grid_x)
             {
                 
-                Cv2.Line(draw_img, new Point(i, 0), new Point(i, height), new Scalar(255, 0, 0));
+                Cv2.Line(MyParam.draw_img, new Point(i, 0), new Point(i, height), new Scalar(255, 0, 0));
                 number_cols_test++;
             }
 
             //draw rows
             int number_rows_test = 0;
-            for (int j = 0; j < height; j += grid)
+            for (int j = 0; j < height; j += grid_y)
             {
-                Cv2.Line(draw_img, new Point(0, j), new Point(width, j), new Scalar(0, 255, 255));
+                Cv2.Line(MyParam.draw_img, new Point(0, j), new Point(width, j), new Scalar(0, 255, 255));
                 number_rows_test++;
             }
 
-            Display_img(draw_img);
-            draw_img.Release();
+            Display_img(MyParam.draw_img);
+            //draw_img.Release();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -279,6 +280,148 @@ namespace VisionPro_Tut
             {
                 Display_img(MyParam.source_img);
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (MyParam.draw_img.Empty())
+                return;
+
+            var file_save = MyLib.GenNameImg();
+            bool b = Cv2.ImWrite(file_save, MyParam.draw_img);
+            Console.WriteLine($"save Image {file_save} = {b}");
+        }
+
+        private void btnGray_Click(object sender, EventArgs e)
+        {
+            if (MyParam.source_img.Empty())
+                return;
+
+            if (MyParam.gray_img == null)
+                MyParam.gray_img = new Mat(MyParam.source_img.Size(), MatType.CV_8UC1);
+
+            if (MyParam.source_img.Channels() == 3)
+            {
+                Cv2.CvtColor(MyParam.source_img, MyParam.gray_img, ColorConversionCodes.BGR2GRAY);
+            }
+            else
+            {
+                MyParam.gray_img = MyParam.source_img.Clone();
+            }
+
+            Display_img(MyParam.gray_img);
+        }
+
+        private void btnBlur_Click(object sender, EventArgs e)
+        {
+            if (MyParam.gray_img.Empty())
+                return;
+
+            if (MyParam.blur_img == null)
+                MyParam.blur_img = new Mat(MyParam.source_img.Size(), MatType.CV_8UC1);
+
+            Cv2.Blur(MyParam.gray_img, MyParam.blur_img, new OpenCvSharp.Size(3, 3));
+
+            Display_img(MyParam.blur_img);
+
+        }
+
+        private void btnBinary_Click(object sender, EventArgs e)
+        {
+            if (MyParam.blur_img.Empty())
+                return;
+
+            if (MyParam.bin_img == null)
+                MyParam.bin_img = new Mat(MyParam.source_img.Size(), MatType.CV_8UC1);
+
+            Cv2.Threshold(MyParam.blur_img, MyParam.bin_img, VisionParam.thresh_binary, 255, ThresholdTypes.Binary);
+
+            Display_img(MyParam.bin_img);
+
+        }
+
+        private void btnHistogram_Click(object sender, EventArgs e)
+        {
+            // Histogram view
+            const int Width = 260, Height = 200;
+            var render = new Mat(new Size(Width, Height), MatType.CV_8UC3, Scalar.All(255));
+
+            // Calculate histogram
+            var hist = new Mat();
+            int[] hdims = { 256 }; // Histogram size for each dimension
+            Rangef[] ranges = { new Rangef(0, 256), }; // min/max 
+            Cv2.CalcHist(
+                new Mat[] { MyParam.bin_img },
+                new int[] { 0 },
+                null,
+                hist,
+                1,
+                hdims,
+                ranges);
+
+            // Get the max value of histogram
+            Cv2.MinMaxLoc(hist, out _, out double maxVal);
+
+            var color = Scalar.All(100);
+            // Scales and draws histogram
+            hist = hist * (maxVal != 0 ? Height / maxVal : 0.0);
+            for (int j = 0; j < hdims[0]; ++j)
+            {
+                int binW = (int)((double)Width / hdims[0]);
+                render.Rectangle(
+                    new Point(j * binW, render.Rows - (int)hist.Get<float>(j)),
+                    new Point((j + 1) * binW, render.Rows),
+                    color,
+                    -1);
+            }
+
+            Window  histogram_wd = new Window("Histogram", render, WindowFlags.AutoSize | WindowFlags.FreeRatio);
+            //histogram_wd.ShowImage()
+            Cv2.WaitKey();
+
+            Cv2.DestroyAllWindows();
+        }
+
+        private void btnBlob_Click(object sender, EventArgs e)
+        {
+            
+            MyParam.contour_img = MyParam.source_img.Clone();
+
+            Point[][] contours; //vector<vector<Point>> contours;
+            HierarchyIndex[] hierarchyIndexes; //vector<Vec4i> hierarchy;
+
+            Cv2.FindContours(
+                   MyParam.bin_img,
+                   out contours,
+                   out hierarchyIndexes,
+                   RetrievalModes.List,
+                   ContourApproximationModes.ApproxSimple);
+
+            Cv2.DrawContours(
+                            MyParam.contour_img,
+                            contours,
+                            -1,
+                            new Scalar(0,255,0),
+                            thickness: 2,
+                            lineType: LineTypes.Link8,
+                            hierarchy: hierarchyIndexes,
+                            maxLevel: int.MaxValue);
+
+            Display_img(MyParam.contour_img);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtThreshBinary_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtThreshBinary.Text))
+                return;
+
+            VisionParam.thresh_binary = Int32.Parse(txtThreshBinary.Text.Trim());
         }
     }
 }
