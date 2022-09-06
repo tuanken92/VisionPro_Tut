@@ -2,6 +2,7 @@
 using Cognex.VisionPro.ImageFile;
 using Cognex.VisionPro.ToolBlock;
 using System;
+using System.IO;
 
 namespace VisionPro_Tut.Source
 {
@@ -35,7 +36,8 @@ namespace VisionPro_Tut.Source
             numFail = Common.numNG;
             bUseCamera = Common.use_camera;
 
-
+            if(!File.Exists(Common.file_toolblock_process))
+                Common.file_toolblock_process = String.Format($"{Utils.projectDirectory}\\Data\\TB_process.vpp");
             mToolBlockProcess = CogSerializer.LoadObjectFromFile(Common.file_toolblock_process) as CogToolBlock;
             ToolBlock_PrintInfor(mToolBlockProcess);
 
