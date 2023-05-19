@@ -37,16 +37,17 @@ namespace VisionPro_Tut
             this.load_AcqFifoItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl_Main = new System.Windows.Forms.TabControl();
             this.tabPage_Auto = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.cogRecordDisplay1 = new Cognex.VisionPro.CogRecordDisplay();
-            this.nFail = new System.Windows.Forms.Label();
-            this.nPass = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnRunContinue = new System.Windows.Forms.Button();
-            this.btnInitial = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.nFail = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnRun = new System.Windows.Forms.Button();
-            this.tabPage_Manual = new System.Windows.Forms.TabPage();
+            this.btnInitial = new System.Windows.Forms.Button();
+            this.nPass = new System.Windows.Forms.Label();
             this.tabPage_Interface = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tb_ClientPort = new System.Windows.Forms.TextBox();
@@ -96,15 +97,37 @@ namespace VisionPro_Tut
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.btnSaveParam = new System.Windows.Forms.Button();
-            this.tabPage_Log = new System.Windows.Forms.TabPage();
+            this.tabPageCamera = new System.Windows.Forms.TabPage();
+            this.splitContainerImageView = new System.Windows.Forms.SplitContainer();
+            this.splitContainerConfiguration = new System.Windows.Forms.SplitContainer();
+            this.deviceListView = new System.Windows.Forms.ListView();
+            this.exposureTimeSliderControl = new PylonLiveViewControl.FloatSliderUserControl();
+            this.widthSliderControl = new PylonLiveViewControl.FloatSliderUserControl();
+            this.heightSliderControl = new PylonLiveViewControl.FloatSliderUserControl();
+            this.gainSliderControl = new PylonLiveViewControl.FloatSliderUserControl();
+            this.pixelFormatControl = new PylonLiveViewControl.EnumerationComboBoxUserControl();
+            this.testImageControl = new PylonLiveViewControl.EnumerationComboBoxUserControl();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonOneShot = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonContinuousShot = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.lbTitle = new System.Windows.Forms.Label();
             this.lbDateTime = new System.Windows.Forms.Label();
             this.timer_DateTime = new System.Windows.Forms.Timer(this.components);
+            this.panelTop = new System.Windows.Forms.Panel();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            this.panelFull = new System.Windows.Forms.Panel();
+            this.updateDeviceListTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tabControl_Main.SuspendLayout();
             this.tabPage_Auto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cogRecordDisplay1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.tabPage_Interface.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -114,7 +137,20 @@ namespace VisionPro_Tut
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabPageCamera.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerImageView)).BeginInit();
+            this.splitContainerImageView.Panel1.SuspendLayout();
+            this.splitContainerImageView.Panel2.SuspendLayout();
+            this.splitContainerImageView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerConfiguration)).BeginInit();
+            this.splitContainerConfiguration.Panel1.SuspendLayout();
+            this.splitContainerConfiguration.Panel2.SuspendLayout();
+            this.splitContainerConfiguration.SuspendLayout();
+            this.toolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
+            this.panelFull.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -122,7 +158,7 @@ namespace VisionPro_Tut
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolBlockToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(4, 562);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 504);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(78, 24);
             this.menuStrip1.TabIndex = 0;
@@ -154,43 +190,50 @@ namespace VisionPro_Tut
             // tabControl_Main
             // 
             this.tabControl_Main.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.tabControl_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl_Main.Controls.Add(this.tabPage_Auto);
-            this.tabControl_Main.Controls.Add(this.tabPage_Manual);
             this.tabControl_Main.Controls.Add(this.tabPage_Interface);
             this.tabControl_Main.Controls.Add(this.tabPage_Parameter);
             this.tabControl_Main.Controls.Add(this.tabPage_Setting);
-            this.tabControl_Main.Controls.Add(this.tabPage_Log);
+            this.tabControl_Main.Controls.Add(this.tabPageCamera);
+            this.tabControl_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl_Main.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl_Main.ItemSize = new System.Drawing.Size(96, 50);
-            this.tabControl_Main.Location = new System.Drawing.Point(0, 56);
+            this.tabControl_Main.Location = new System.Drawing.Point(0, 0);
+            this.tabControl_Main.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.tabControl_Main.Multiline = true;
             this.tabControl_Main.Name = "tabControl_Main";
             this.tabControl_Main.SelectedIndex = 0;
-            this.tabControl_Main.Size = new System.Drawing.Size(855, 503);
+            this.tabControl_Main.Size = new System.Drawing.Size(879, 666);
             this.tabControl_Main.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl_Main.TabIndex = 1;
             // 
             // tabPage_Auto
             // 
             this.tabPage_Auto.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage_Auto.Controls.Add(this.cogRecordDisplay1);
-            this.tabPage_Auto.Controls.Add(this.nFail);
-            this.tabPage_Auto.Controls.Add(this.nPass);
-            this.tabPage_Auto.Controls.Add(this.label6);
-            this.tabPage_Auto.Controls.Add(this.label4);
-            this.tabPage_Auto.Controls.Add(this.label2);
-            this.tabPage_Auto.Controls.Add(this.btnRunContinue);
-            this.tabPage_Auto.Controls.Add(this.btnInitial);
-            this.tabPage_Auto.Controls.Add(this.btnRun);
+            this.tabPage_Auto.Controls.Add(this.splitContainer1);
             this.tabPage_Auto.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Auto.Name = "tabPage_Auto";
             this.tabPage_Auto.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Auto.Size = new System.Drawing.Size(847, 445);
+            this.tabPage_Auto.Size = new System.Drawing.Size(871, 608);
             this.tabPage_Auto.TabIndex = 0;
             this.tabPage_Auto.Text = "Auto";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.cogRecordDisplay1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Size = new System.Drawing.Size(865, 602);
+            this.splitContainer1.SplitterDistance = 692;
+            this.splitContainer1.TabIndex = 26;
             // 
             // cogRecordDisplay1
             // 
@@ -199,65 +242,48 @@ namespace VisionPro_Tut
             this.cogRecordDisplay1.ColorMapPredefined = Cognex.VisionPro.Display.CogDisplayColorMapPredefinedConstants.None;
             this.cogRecordDisplay1.ColorMapUpperClipColor = System.Drawing.Color.Black;
             this.cogRecordDisplay1.ColorMapUpperRoiLimit = 1D;
+            this.cogRecordDisplay1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cogRecordDisplay1.DoubleTapZoomCycleLength = 2;
             this.cogRecordDisplay1.DoubleTapZoomSensitivity = 2.5D;
-            this.cogRecordDisplay1.Location = new System.Drawing.Point(3, 3);
+            this.cogRecordDisplay1.Location = new System.Drawing.Point(0, 0);
             this.cogRecordDisplay1.MouseWheelMode = Cognex.VisionPro.Display.CogDisplayMouseWheelModeConstants.Zoom1;
             this.cogRecordDisplay1.MouseWheelSensitivity = 1D;
             this.cogRecordDisplay1.Name = "cogRecordDisplay1";
             this.cogRecordDisplay1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("cogRecordDisplay1.OcxState")));
-            this.cogRecordDisplay1.Size = new System.Drawing.Size(694, 436);
+            this.cogRecordDisplay1.Size = new System.Drawing.Size(692, 602);
             this.cogRecordDisplay1.TabIndex = 25;
             // 
-            // nFail
+            // groupBox1
             // 
-            this.nFail.AutoSize = true;
-            this.nFail.Location = new System.Drawing.Point(765, 290);
-            this.nFail.Name = "nFail";
-            this.nFail.Size = new System.Drawing.Size(16, 17);
-            this.nFail.TabIndex = 24;
-            this.nFail.Text = "0";
-            // 
-            // nPass
-            // 
-            this.nPass.AutoSize = true;
-            this.nPass.Location = new System.Drawing.Point(765, 270);
-            this.nPass.Name = "nPass";
-            this.nPass.Size = new System.Drawing.Size(16, 17);
-            this.nPass.TabIndex = 23;
-            this.nPass.Text = "0";
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.btnRunContinue);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.nFail);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btnRun);
+            this.groupBox1.Controls.Add(this.btnInitial);
+            this.groupBox1.Controls.Add(this.nPass);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox1.Location = new System.Drawing.Point(0, 376);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(169, 226);
+            this.groupBox1.TabIndex = 25;
+            this.groupBox1.TabStop = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(703, 247);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label6.Location = new System.Drawing.Point(11, 24);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 13);
+            this.label6.Size = new System.Drawing.Size(91, 13);
             this.label6.TabIndex = 22;
-            this.label6.Text = "OutPuts";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(703, 290);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 17);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "Fail:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(703, 269);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 17);
-            this.label2.TabIndex = 20;
-            this.label2.Text = "Pass:";
+            this.label6.Text = "Output Results";
             // 
             // btnRunContinue
             // 
-            this.btnRunContinue.Location = new System.Drawing.Point(705, 317);
+            this.btnRunContinue.Location = new System.Drawing.Point(14, 90);
             this.btnRunContinue.Name = "btnRunContinue";
             this.btnRunContinue.Size = new System.Drawing.Size(134, 34);
             this.btnRunContinue.TabIndex = 19;
@@ -265,19 +291,39 @@ namespace VisionPro_Tut
             this.btnRunContinue.UseVisualStyleBackColor = true;
             this.btnRunContinue.Click += new System.EventHandler(this.btn_Click_Event);
             // 
-            // btnInitial
+            // label4
             // 
-            this.btnInitial.Location = new System.Drawing.Point(705, 405);
-            this.btnInitial.Name = "btnInitial";
-            this.btnInitial.Size = new System.Drawing.Size(134, 34);
-            this.btnInitial.TabIndex = 19;
-            this.btnInitial.Text = "Initial";
-            this.btnInitial.UseVisualStyleBackColor = true;
-            this.btnInitial.Click += new System.EventHandler(this.btn_Click_Event);
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label4.Location = new System.Drawing.Point(11, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(34, 17);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Fail:";
+            // 
+            // nFail
+            // 
+            this.nFail.AutoSize = true;
+            this.nFail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.nFail.Location = new System.Drawing.Point(73, 67);
+            this.nFail.Name = "nFail";
+            this.nFail.Size = new System.Drawing.Size(16, 17);
+            this.nFail.TabIndex = 24;
+            this.nFail.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Green;
+            this.label2.Location = new System.Drawing.Point(11, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(43, 17);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "Pass:";
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(705, 361);
+            this.btnRun.Location = new System.Drawing.Point(14, 134);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(134, 34);
             this.btnRun.TabIndex = 19;
@@ -285,15 +331,25 @@ namespace VisionPro_Tut
             this.btnRun.UseVisualStyleBackColor = true;
             this.btnRun.Click += new System.EventHandler(this.btn_Click_Event);
             // 
-            // tabPage_Manual
+            // btnInitial
             // 
-            this.tabPage_Manual.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage_Manual.Location = new System.Drawing.Point(4, 4);
-            this.tabPage_Manual.Name = "tabPage_Manual";
-            this.tabPage_Manual.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Manual.Size = new System.Drawing.Size(847, 445);
-            this.tabPage_Manual.TabIndex = 1;
-            this.tabPage_Manual.Text = "Manual";
+            this.btnInitial.Location = new System.Drawing.Point(14, 178);
+            this.btnInitial.Name = "btnInitial";
+            this.btnInitial.Size = new System.Drawing.Size(134, 34);
+            this.btnInitial.TabIndex = 19;
+            this.btnInitial.Text = "Initial";
+            this.btnInitial.UseVisualStyleBackColor = true;
+            this.btnInitial.Click += new System.EventHandler(this.btn_Click_Event);
+            // 
+            // nPass
+            // 
+            this.nPass.AutoSize = true;
+            this.nPass.ForeColor = System.Drawing.Color.Green;
+            this.nPass.Location = new System.Drawing.Point(73, 47);
+            this.nPass.Name = "nPass";
+            this.nPass.Size = new System.Drawing.Size(16, 17);
+            this.nPass.TabIndex = 23;
+            this.nPass.Text = "0";
             // 
             // tabPage_Interface
             // 
@@ -303,7 +359,7 @@ namespace VisionPro_Tut
             this.tabPage_Interface.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Interface.Name = "tabPage_Interface";
             this.tabPage_Interface.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Interface.Size = new System.Drawing.Size(847, 445);
+            this.tabPage_Interface.Size = new System.Drawing.Size(871, 608);
             this.tabPage_Interface.TabIndex = 2;
             this.tabPage_Interface.Text = "Interface";
             // 
@@ -499,7 +555,7 @@ namespace VisionPro_Tut
             this.tabPage_Parameter.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Parameter.Name = "tabPage_Parameter";
             this.tabPage_Parameter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Parameter.Size = new System.Drawing.Size(847, 445);
+            this.tabPage_Parameter.Size = new System.Drawing.Size(871, 608);
             this.tabPage_Parameter.TabIndex = 3;
             this.tabPage_Parameter.Text = "Parameter";
             // 
@@ -515,7 +571,7 @@ namespace VisionPro_Tut
             this.tabPage_Setting.Location = new System.Drawing.Point(4, 4);
             this.tabPage_Setting.Name = "tabPage_Setting";
             this.tabPage_Setting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Setting.Size = new System.Drawing.Size(847, 445);
+            this.tabPage_Setting.Size = new System.Drawing.Size(871, 608);
             this.tabPage_Setting.TabIndex = 4;
             this.tabPage_Setting.Text = "Setting";
             // 
@@ -774,34 +830,219 @@ namespace VisionPro_Tut
             this.btnSaveParam.UseVisualStyleBackColor = true;
             this.btnSaveParam.Click += new System.EventHandler(this.btn_Click_Event);
             // 
-            // tabPage_Log
+            // tabPageCamera
             // 
-            this.tabPage_Log.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage_Log.Location = new System.Drawing.Point(4, 4);
-            this.tabPage_Log.Name = "tabPage_Log";
-            this.tabPage_Log.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Log.Size = new System.Drawing.Size(847, 445);
-            this.tabPage_Log.TabIndex = 5;
-            this.tabPage_Log.Text = "Log";
+            this.tabPageCamera.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageCamera.Controls.Add(this.splitContainerImageView);
+            this.tabPageCamera.Location = new System.Drawing.Point(4, 4);
+            this.tabPageCamera.Name = "tabPageCamera";
+            this.tabPageCamera.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCamera.Size = new System.Drawing.Size(871, 608);
+            this.tabPageCamera.TabIndex = 5;
+            this.tabPageCamera.Text = "Camera";
+            // 
+            // splitContainerImageView
+            // 
+            this.splitContainerImageView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainerImageView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerImageView.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainerImageView.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerImageView.Name = "splitContainerImageView";
+            // 
+            // splitContainerImageView.Panel1
+            // 
+            this.splitContainerImageView.Panel1.Controls.Add(this.splitContainerConfiguration);
+            this.splitContainerImageView.Panel1.Controls.Add(this.toolStrip);
+            // 
+            // splitContainerImageView.Panel2
+            // 
+            this.splitContainerImageView.Panel2.AutoScroll = true;
+            this.splitContainerImageView.Panel2.Controls.Add(this.pictureBox);
+            this.splitContainerImageView.Size = new System.Drawing.Size(865, 602);
+            this.splitContainerImageView.SplitterDistance = 261;
+            this.splitContainerImageView.TabIndex = 1;
+            this.splitContainerImageView.TabStop = false;
+            // 
+            // splitContainerConfiguration
+            // 
+            this.splitContainerConfiguration.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainerConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerConfiguration.Location = new System.Drawing.Point(0, 39);
+            this.splitContainerConfiguration.Name = "splitContainerConfiguration";
+            this.splitContainerConfiguration.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerConfiguration.Panel1
+            // 
+            this.splitContainerConfiguration.Panel1.Controls.Add(this.deviceListView);
+            // 
+            // splitContainerConfiguration.Panel2
+            // 
+            this.splitContainerConfiguration.Panel2.Controls.Add(this.exposureTimeSliderControl);
+            this.splitContainerConfiguration.Panel2.Controls.Add(this.widthSliderControl);
+            this.splitContainerConfiguration.Panel2.Controls.Add(this.heightSliderControl);
+            this.splitContainerConfiguration.Panel2.Controls.Add(this.gainSliderControl);
+            this.splitContainerConfiguration.Panel2.Controls.Add(this.pixelFormatControl);
+            this.splitContainerConfiguration.Panel2.Controls.Add(this.testImageControl);
+            this.splitContainerConfiguration.Size = new System.Drawing.Size(261, 563);
+            this.splitContainerConfiguration.SplitterDistance = 190;
+            this.splitContainerConfiguration.TabIndex = 2;
+            this.splitContainerConfiguration.TabStop = false;
+            // 
+            // deviceListView
+            // 
+            this.deviceListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.deviceListView.HideSelection = false;
+            this.deviceListView.Location = new System.Drawing.Point(0, 0);
+            this.deviceListView.MultiSelect = false;
+            this.deviceListView.Name = "deviceListView";
+            this.deviceListView.ShowItemToolTips = true;
+            this.deviceListView.Size = new System.Drawing.Size(257, 186);
+            this.deviceListView.TabIndex = 0;
+            this.deviceListView.UseCompatibleStateImageBehavior = false;
+            this.deviceListView.View = System.Windows.Forms.View.Tile;
+            this.deviceListView.SelectedIndexChanged += new System.EventHandler(this.deviceListView_SelectedIndexChanged);
+            // 
+            // exposureTimeSliderControl
+            // 
+            this.exposureTimeSliderControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.exposureTimeSliderControl.DefaultName = "N/A";
+            this.exposureTimeSliderControl.Location = new System.Drawing.Point(6, 308);
+            this.exposureTimeSliderControl.MinimumSize = new System.Drawing.Size(225, 50);
+            this.exposureTimeSliderControl.Name = "exposureTimeSliderControl";
+            this.exposureTimeSliderControl.Size = new System.Drawing.Size(244, 50);
+            this.exposureTimeSliderControl.TabIndex = 10;
+            // 
+            // widthSliderControl
+            // 
+            this.widthSliderControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.widthSliderControl.DefaultName = "N/A";
+            this.widthSliderControl.Location = new System.Drawing.Point(6, 140);
+            this.widthSliderControl.MinimumSize = new System.Drawing.Size(225, 50);
+            this.widthSliderControl.Name = "widthSliderControl";
+            this.widthSliderControl.Size = new System.Drawing.Size(248, 50);
+            this.widthSliderControl.TabIndex = 9;
+            // 
+            // heightSliderControl
+            // 
+            this.heightSliderControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.heightSliderControl.DefaultName = "N/A";
+            this.heightSliderControl.Location = new System.Drawing.Point(6, 196);
+            this.heightSliderControl.MinimumSize = new System.Drawing.Size(225, 50);
+            this.heightSliderControl.Name = "heightSliderControl";
+            this.heightSliderControl.Size = new System.Drawing.Size(248, 50);
+            this.heightSliderControl.TabIndex = 9;
+            // 
+            // gainSliderControl
+            // 
+            this.gainSliderControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gainSliderControl.DefaultName = "N/A";
+            this.gainSliderControl.Location = new System.Drawing.Point(6, 252);
+            this.gainSliderControl.MinimumSize = new System.Drawing.Size(225, 50);
+            this.gainSliderControl.Name = "gainSliderControl";
+            this.gainSliderControl.Size = new System.Drawing.Size(248, 50);
+            this.gainSliderControl.TabIndex = 9;
+            // 
+            // pixelFormatControl
+            // 
+            this.pixelFormatControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pixelFormatControl.DefaultName = "N/A";
+            this.pixelFormatControl.Location = new System.Drawing.Point(6, 60);
+            this.pixelFormatControl.Name = "pixelFormatControl";
+            this.pixelFormatControl.Size = new System.Drawing.Size(240, 57);
+            this.pixelFormatControl.TabIndex = 8;
+            // 
+            // testImageControl
+            // 
+            this.testImageControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.testImageControl.DefaultName = "N/A";
+            this.testImageControl.Location = new System.Drawing.Point(6, 3);
+            this.testImageControl.Name = "testImageControl";
+            this.testImageControl.Size = new System.Drawing.Size(240, 51);
+            this.testImageControl.TabIndex = 7;
+            // 
+            // toolStrip
+            // 
+            this.toolStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonOneShot,
+            this.toolStripButtonContinuousShot,
+            this.toolStripButtonStop});
+            this.toolStrip.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(261, 39);
+            this.toolStrip.TabIndex = 0;
+            this.toolStrip.Text = "toolStrip";
+            // 
+            // toolStripButtonOneShot
+            // 
+            this.toolStripButtonOneShot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonOneShot.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOneShot.Image")));
+            this.toolStripButtonOneShot.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonOneShot.Name = "toolStripButtonOneShot";
+            this.toolStripButtonOneShot.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButtonOneShot.Text = "One Shot";
+            this.toolStripButtonOneShot.ToolTipText = "One Shot";
+            this.toolStripButtonOneShot.Click += new System.EventHandler(this.toolStripButtonOneShot_Click);
+            // 
+            // toolStripButtonContinuousShot
+            // 
+            this.toolStripButtonContinuousShot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonContinuousShot.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonContinuousShot.Image")));
+            this.toolStripButtonContinuousShot.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonContinuousShot.Name = "toolStripButtonContinuousShot";
+            this.toolStripButtonContinuousShot.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButtonContinuousShot.Text = "Continuous Shot";
+            this.toolStripButtonContinuousShot.ToolTipText = "Continuous Shot";
+            this.toolStripButtonContinuousShot.Click += new System.EventHandler(this.toolStripButtonContinuousShot_Click);
+            // 
+            // toolStripButtonStop
+            // 
+            this.toolStripButtonStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonStop.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonStop.Image")));
+            this.toolStripButtonStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonStop.Name = "toolStripButtonStop";
+            this.toolStripButtonStop.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButtonStop.Text = "Stop Grab";
+            this.toolStripButtonStop.ToolTipText = "Stop Grab";
+            this.toolStripButtonStop.Click += new System.EventHandler(this.toolStripButtonStop_Click);
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(596, 598);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = false;
             // 
             // lbTitle
             // 
-            this.lbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbTitle.Location = new System.Drawing.Point(65, 5);
+            this.lbTitle.Location = new System.Drawing.Point(0, 0);
             this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(687, 48);
+            this.lbTitle.Size = new System.Drawing.Size(879, 67);
             this.lbTitle.TabIndex = 2;
             this.lbTitle.Text = "VisionPro Tutorial";
             this.lbTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbDateTime
             // 
-            this.lbDateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDateTime.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbDateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDateTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbDateTime.Location = new System.Drawing.Point(674, 5);
+            this.lbDateTime.Location = new System.Drawing.Point(698, 0);
             this.lbDateTime.Name = "lbDateTime";
-            this.lbDateTime.Size = new System.Drawing.Size(181, 48);
+            this.lbDateTime.Size = new System.Drawing.Size(181, 67);
             this.lbDateTime.TabIndex = 3;
             this.lbDateTime.Text = "Date-Time";
             this.lbDateTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -812,26 +1053,52 @@ namespace VisionPro_Tut
             this.timer_DateTime.Interval = 1000;
             this.timer_DateTime.Tick += new System.EventHandler(this.timer_DateTime_Tick);
             // 
+            // panelTop
+            // 
+            this.panelTop.Controls.Add(this.pictureBoxLogo);
+            this.panelTop.Controls.Add(this.lbDateTime);
+            this.panelTop.Controls.Add(this.lbTitle);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(879, 67);
+            this.panelTop.TabIndex = 5;
+            // 
             // pictureBoxLogo
             // 
-            this.pictureBoxLogo.Image = global::VisionPro_Tut.Properties.Resources.Vietnam;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(4, 5);
+            this.pictureBoxLogo.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBoxLogo.Image = global::VisionPro_Tut.Properties.Resources.logo_thh;
+            this.pictureBoxLogo.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(64, 50);
+            this.pictureBoxLogo.Size = new System.Drawing.Size(223, 67);
             this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxLogo.TabIndex = 4;
             this.pictureBoxLogo.TabStop = false;
+            // 
+            // panelFull
+            // 
+            this.panelFull.Controls.Add(this.tabControl_Main);
+            this.panelFull.Controls.Add(this.menuStrip1);
+            this.panelFull.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFull.Location = new System.Drawing.Point(0, 67);
+            this.panelFull.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.panelFull.Name = "panelFull";
+            this.panelFull.Size = new System.Drawing.Size(879, 666);
+            this.panelFull.TabIndex = 26;
+            // 
+            // updateDeviceListTimer
+            // 
+            this.updateDeviceListTimer.Enabled = true;
+            this.updateDeviceListTimer.Interval = 5000;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 595);
-            this.Controls.Add(this.lbDateTime);
-            this.Controls.Add(this.pictureBoxLogo);
-            this.Controls.Add(this.lbTitle);
-            this.Controls.Add(this.tabControl_Main);
-            this.Controls.Add(this.menuStrip1);
+            this.ClientSize = new System.Drawing.Size(879, 733);
+            this.Controls.Add(this.panelFull);
+            this.Controls.Add(this.panelTop);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "VisionPro Tutotial";
@@ -841,8 +1108,13 @@ namespace VisionPro_Tut
             this.menuStrip1.PerformLayout();
             this.tabControl_Main.ResumeLayout(false);
             this.tabPage_Auto.ResumeLayout(false);
-            this.tabPage_Auto.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cogRecordDisplay1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tabPage_Interface.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -859,9 +1131,24 @@ namespace VisionPro_Tut
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabPageCamera.ResumeLayout(false);
+            this.splitContainerImageView.Panel1.ResumeLayout(false);
+            this.splitContainerImageView.Panel1.PerformLayout();
+            this.splitContainerImageView.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerImageView)).EndInit();
+            this.splitContainerImageView.ResumeLayout(false);
+            this.splitContainerConfiguration.Panel1.ResumeLayout(false);
+            this.splitContainerConfiguration.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerConfiguration)).EndInit();
+            this.splitContainerConfiguration.ResumeLayout(false);
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            this.panelTop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
+            this.panelFull.ResumeLayout(false);
+            this.panelFull.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -873,13 +1160,11 @@ namespace VisionPro_Tut
         private System.Windows.Forms.ToolStripMenuItem load_AcqFifoItem;
         private System.Windows.Forms.TabControl tabControl_Main;
         private System.Windows.Forms.TabPage tabPage_Auto;
-        private System.Windows.Forms.TabPage tabPage_Manual;
         private System.Windows.Forms.Label lbTitle;
         private System.Windows.Forms.Label lbDateTime;
         private System.Windows.Forms.TabPage tabPage_Interface;
         private System.Windows.Forms.TabPage tabPage_Parameter;
         private System.Windows.Forms.TabPage tabPage_Setting;
-        private System.Windows.Forms.TabPage tabPage_Log;
         private System.Windows.Forms.Label nFail;
         private System.Windows.Forms.Label nPass;
         private System.Windows.Forms.Label label6;
@@ -937,6 +1222,26 @@ namespace VisionPro_Tut
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Panel panelTop;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TabPage tabPageCamera;
+        private System.Windows.Forms.Panel panelFull;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.SplitContainer splitContainerImageView;
+        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripButton toolStripButtonOneShot;
+        private System.Windows.Forms.ToolStripButton toolStripButtonContinuousShot;
+        private System.Windows.Forms.ToolStripButton toolStripButtonStop;
+        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.SplitContainer splitContainerConfiguration;
+        private System.Windows.Forms.ListView deviceListView;
+        public PylonLiveViewControl.FloatSliderUserControl exposureTimeSliderControl;
+        public PylonLiveViewControl.FloatSliderUserControl widthSliderControl;
+        public PylonLiveViewControl.FloatSliderUserControl heightSliderControl;
+        public PylonLiveViewControl.FloatSliderUserControl gainSliderControl;
+        private PylonLiveViewControl.EnumerationComboBoxUserControl pixelFormatControl;
+        private PylonLiveViewControl.EnumerationComboBoxUserControl testImageControl;
+        private System.Windows.Forms.Timer updateDeviceListTimer;
     }
 }
 

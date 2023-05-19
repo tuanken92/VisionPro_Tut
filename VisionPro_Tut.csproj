@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Basler.Pylon, Version=1.2.0.0, Culture=neutral, PublicKeyToken=e389355f398382ab, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Basler\pylon 6\Development\Assemblies\Basler.Pylon\x86\Basler.Pylon.dll</HintPath>
+    </Reference>
     <Reference Include="Cognex.VisionPro, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.Blob, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.Controls, Version=71.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
@@ -94,6 +98,18 @@
     <Compile Include="Source\MyDefine.cs" />
     <Compile Include="Source\ObjectManager.cs" />
     <Compile Include="Source\SaveLoadParameter.cs" />
+    <Compile Include="Views\Basler\EnumerationComboBoxUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Basler\EnumerationComboBoxUserControl.designer.cs">
+      <DependentUpon>EnumerationComboBoxUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Basler\FloatSliderUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Basler\FloatSliderUserControl.designer.cs">
+      <DependentUpon>FloatSliderUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToolBlockWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +126,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\Basler\EnumerationComboBoxUserControl.resx">
+      <DependentUpon>EnumerationComboBoxUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Basler\FloatSliderUserControl.resx">
+      <DependentUpon>FloatSliderUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ToolBlockWindow.resx">
       <DependentUpon>ToolBlockWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -165,6 +187,7 @@
     <Content Include="Pictures\Line.jpg" />
     <Content Include="Pictures\Log.JPG" />
     <Content Include="Pictures\Logo THH.png" />
+    <Content Include="Pictures\logo-thh.png" />
     <Content Include="Pictures\Logo.png" />
     <Content Include="Pictures\Log_Off.ico" />
     <Content Include="Pictures\Log_Off.png" />

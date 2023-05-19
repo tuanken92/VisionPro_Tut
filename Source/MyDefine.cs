@@ -10,6 +10,7 @@ using static VisionPro_Tut.Source.Utils;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing;
 using System.Drawing.Imaging;
+using Basler.Pylon;
 
 namespace VisionPro_Tut.Source
 {
@@ -193,6 +194,9 @@ namespace VisionPro_Tut.Source
         public SerialPortParam serial_port = new SerialPortParam();
         public TCPParam tcp_client = new TCPParam("Client", "127.0.0.1", 5001);
         public TCPParam tcp_server = new TCPParam("Server", "127.0.0.1", 5002);
+
+        
+        public Camera camera = null;
 
         public void Print_Infor()
         {
